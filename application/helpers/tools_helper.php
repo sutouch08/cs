@@ -63,6 +63,19 @@ function getColorGroup($id)
 }
 	
 
+function getParentCategoryName($id_parent)
+{
+	$c =& get_instance();
+	$name = "";
+	$rs = $c->db->select("category_name")->get_where("tbl_category", array("id_category"=>$id_parent), 1);
+	if($rs->num_rows == 1)
+	{
+		$name = $rs->row()->category_name();
+	}
+	return $name;
+}
+
+
 
 function getEmployeeNameByIdUser($id_user)
 {
