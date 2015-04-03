@@ -39,15 +39,18 @@
         		<tr>
                     <td style="vertical-align:middle;" align="center"><?php echo $i; ?></td>
                     <td style="vertical-align:middle;"><?php echo $rs->category_name; ?></td>
-                    <td style="vertical-align:middle;"><?php echo getParentCategoryName($rs->id_category); ?></td>
-                    <td style="vertical-align:middle;"><?php echo isActived($rs->show); ?></td>
+                    <td style="vertical-align:middle;"><?php echo getParentCategoryName($rs->id_parent); ?></td>
+                    <td style="vertical-align:middle;" align="center"><?php echo isActived($rs->show); ?></td>
                     <td style="vertical-align:middle;" align="center"><?php echo isActived($rs->active); ?></td>
+                    <td style="vertical-align:middle;" align="center"><?php echo thaiDate($rs->date_upd,"/"); ?></td>
                     <td align="right" style="vertical-align:middle;">
+                    <?php if($rs->id_category != 1) : ?>
                     	<a href="<?php echo $this->home; ?>/edit_category/<?php echo $rs->id_category; ?>">
                         	<button type="button" class="btn btn-warning" <?php echo $access['edit']; ?>><i class="fa fa-pencil"></i></button>
                         </a>
                             <button type="button" class="btn btn-danger" 
                             onclick="confirm_delete('คุณแน่ใจว่าต้องการลบรายการนี้','การกระทำนี้ไม่สามารถกู้คืนได้','<?php echo $this->home; ?>/delete_category/<?php echo $rs->id_category; ?>','ใช่ ต้องการลบ','ยกเลิก');"  <?php echo $access['delete']; ?>><i class="fa fa-trash"></i></button>
+                   <?php endif; ?>
                     </td>
                 </tr>
         <?php endforeach; ?>
