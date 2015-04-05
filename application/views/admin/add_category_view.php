@@ -65,66 +65,19 @@
                     	 <span class="lbl"> <?php echo "HOME"; ?></span>
                     </label>
                		<ul class='tree tree-selectable'><!--lavel1 -->
-                    <?php foreach($root_level_1 as $rs1):  ?>
+                    <?php foreach($cate as $rs):  ?>
                     	<li class="tree-branch tree-open">
                         	<div class="tree-branch-header">
                             	<span class="tree-branch-name">
                     				<span class="tree-label">
-                                   		 <label for="<?php echo $rs1->category_name;?>">
-                                             <input type="radio" name="id_category" value="<?php echo $rs1->id_category;?>" id="<?php echo $rs1->category_name;?>" class="ace">
-                                             <span class="lbl"> <?php echo $rs1->category_name."<br>"; ?></span>
+                                   		 <label for="<?php echo $rs->category_name;?>">
+                                             <input type="radio" name="id_category" value="<?php echo $rs->id_category;?>" id="<?php echo $rs->category_name;?>" class="ace">
+                                             <span class="lbl"> <?php echo $rs->category_name."<br>"; ?></span>
                                         </label>
                                     </span>
                                 </span>
                         	</div>
-                            <ul class='tree-branch-children'><!--lavel2 -->
-								<?php foreach($root_level_2 as $rs2):  ?>
-                                <?php if($rs2->parent_id == $rs1->id_category): ?>
-                                <li class="tree-item">
-                            			<span class="tree-branch-name">
-                    						<span class="tree-label">
-                                                <label for="<?php echo $rs2->category_name;?>">
-                                                    <input type="radio" name="id_category" value="<?php echo $rs2->id_category;?>" id="<?php echo $rs2->category_name;?>" class="ace">
-                                                   <span class="lbl"> <?php echo "&nbsp;&nbsp;&nbsp;".$rs2->category_name."<br>"; ?></span>
-                                                </label>
-                                            </span>
-                              			</span>
-                                </li>
-                                  <ul class='tree-branch-children'><!--lavel3 -->
-											<?php foreach($root_level_3 as $rs3):  ?>
-                                            <?php if($rs3->parent_id == $rs2->id_category): ?>
-                                            <li class="tree-item">
-                                                    <span class="tree-branch-name">
-                                                        <span class="tree-label">
-                                                            <label for="<?php echo $rs3->category_name;?>">
-                                                                <input type="radio" name="id_category" value="<?php echo $rs3->id_category;?>" id="<?php echo $rs3->category_name;?>" class="ace">
-                                                                <span class="lbl"><?php echo "&nbsp;&nbsp;&nbsp;".$rs3->category_name."<br>"; ?></span>
-                                                            </label>
-                                                        </span>
-                                                    </span>
-                                            </li>
-                                                <ul class='tree-branch-children'><!--lavel4 -->
-                                                <?php foreach($root_level_4 as $rs4):  ?>
-                                                <?php if($rs4->parent_id == $rs3->id_category): ?>
-                                                <li class="tree-item">
-                                                        <span class="tree-branch-name">
-                                                            <span class="tree-label">
-                                                                <label for="<?php echo $rs4->category_name;?>">
-                                                                    <input type="radio" name="id_category" value="<?php echo $rs4->id_category;?>" id="<?php echo $rs4->category_name;?>" class="ace">
-                                                                    <span class="lbl"><?php echo "&nbsp;&nbsp;&nbsp;".$rs4->category_name."<br>"; ?></span>
-                                                                </label>
-                                                            </span>
-                                                        </span>
-                                                </li>
-												<?php endif; ?>
-                                                <?php endforeach; ?>
-                                                </ul>
-                                        <?php endif; ?>
-                                        <?php endforeach; ?>
-                                  		</ul>
-                                <?php endif; ?>
-                                <?php endforeach; ?>
-                            </ul>
+                            <?php $c =& get_instance(); $c->display_children($rs->id_category,$rs->level+1); ?>  
                         </li>
                     <?php endforeach; ?>                    
                     </ul>

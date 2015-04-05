@@ -43,6 +43,18 @@ class Category_model extends CI_Model
 		}
 	}
 	
+	public function get_category_by_parent($parent, $level)
+	{
+		$rs = $this->db->get_where("tbl_category", array("id_parent"=>$parent, "level"=>$level));
+		if($rs->num_rows() >0)
+		{
+			return $rs->result();
+		}else{
+			return false;
+		}
+	}
 }// End class
+
+
 
 ?>
