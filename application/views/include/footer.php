@@ -100,6 +100,22 @@ function confirm_delete(title, text, url, confirm_text, cancle_text)
 	  } 
 	});
 }
+
+function switch_lang(lang)
+{
+	$.ajax({
+		url: "<?php echo base_url()."index/switch_lang/"; ?>"+lang,
+		type:"GET", cache:false,
+		success: function(rs){
+			if(rs == "ok")
+			{
+				location.reload();
+			}else{
+				alert("error : cannot switch language");
+			}
+		}
+	});
+}
 </script>
 	</body>
 

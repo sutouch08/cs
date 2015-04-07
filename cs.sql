@@ -41,8 +41,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('9bade4ec64050a16e6153f05128c9244', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0', 1428035451, 'a:4:{s:9:"user_data";s:0:"";s:7:"id_user";s:1:"1";s:9:"user_name";s:5:"admin";s:10:"id_profile";s:1:"0";}'),
-('61a92e25aeaa26185d4920a4a627e0cd', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0', 1428048376, 'a:4:{s:9:"user_data";s:0:"";s:7:"id_user";s:1:"1";s:9:"user_name";s:5:"admin";s:10:"id_profile";s:1:"0";}');
+('9bbe36a6d3f919ef7ea5f1e4b90bbdbb', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1428401275, 'a:5:{s:9:"user_data";s:0:"";s:7:"id_user";s:1:"1";s:9:"user_name";s:5:"admin";s:10:"id_profile";s:1:"1";s:4:"lang";s:7:"english";}');
 
 -- --------------------------------------------------------
 
@@ -105,14 +104,20 @@ CREATE TABLE IF NOT EXISTS `tbl_category` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_category`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- dump ตาราง `tbl_category`
 --
 
 INSERT INTO `tbl_category` (`id_category`, `category_name`, `id_parent`, `level`, `show`, `active`, `date_upd`) VALUES
-(1, 'HOME', 0, 1, 1, 1, '2015-04-03 07:38:20');
+(1, 'HOME', 0, 1, 1, 1, '2015-04-03 07:38:20'),
+(2, 'เสื้อผ้า', 1, 2, 1, 1, '2015-04-06 07:50:54'),
+(3, 'เสื้อ', 2, 3, 1, 1, '2015-04-06 10:06:24'),
+(4, 'กางเกง', 2, 3, 1, 1, '2015-04-06 08:31:01'),
+(5, 'อุปกรณ์', 1, 2, 1, 1, '2015-04-06 08:31:20'),
+(6, 'รองเท้า', 1, 2, 1, 1, '2015-04-06 08:31:30'),
+(9, 'รองเท้า Futsal', 6, 3, 1, 1, '2015-04-06 08:52:49');
 
 -- --------------------------------------------------------
 
@@ -197,6 +202,66 @@ INSERT INTO `tbl_employee` (`id_employee`, `code`, `first_name`, `last_name`, `a
 -- --------------------------------------------------------
 
 --
+-- โครงสร้างตาราง `tbl_product`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_product` (
+  `id_product` int(11) NOT NULL AUTO_INCREMENT,
+  `product_code` text NOT NULL,
+  `product_name` text NOT NULL,
+  `product_cost` decimal(17,2) NOT NULL DEFAULT '0.00',
+  `product_price` decimal(17,2) NOT NULL DEFAULT '0.00',
+  `weight` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `width` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `length` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `height` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `default_category_id` int(11) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `show` tinyint(1) NOT NULL DEFAULT '1',
+  `under_zero` set('default','yes','no','') NOT NULL DEFAULT 'default',
+  `date_add` datetime NOT NULL,
+  `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_product`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- dump ตาราง `tbl_product`
+--
+
+INSERT INTO `tbl_product` (`id_product`, `product_code`, `product_name`, `product_cost`, `product_price`, `weight`, `width`, `length`, `height`, `default_category_id`, `active`, `show`, `under_zero`, `date_add`, `date_upd`) VALUES
+(1, 'KFB-S018', 'กางเกงกีฬาขาสั้น', '90.00', '168.00', '0.00', '0.00', '0.00', '0.00', 2, 1, 1, 'default', '2015-04-07 00:00:00', '2015-04-07 09:55:57');
+
+-- --------------------------------------------------------
+
+--
+-- โครงสร้างตาราง `tbl_product_attribute`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_product_attribute` (
+  `id_product_attribute` int(11) NOT NULL AUTO_INCREMENT,
+  `id_product` int(11) NOT NULL,
+  `reference` varchar(50) NOT NULL,
+  `barcode` varchar(50) NOT NULL,
+  `id_color` int(11) NOT NULL DEFAULT '0',
+  `id_size` int(11) NOT NULL DEFAULT '0',
+  `id_attribute` int(11) NOT NULL DEFAULT '0',
+  `cost` decimal(17,2) NOT NULL DEFAULT '0.00',
+  `price` decimal(17,2) NOT NULL DEFAULT '0.00',
+  `weight` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `width` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `length` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `height` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `show` tinyint(1) NOT NULL DEFAULT '1',
+  `under_zero` set('default','yes','no','') NOT NULL DEFAULT 'default',
+  `date_add` datetime NOT NULL,
+  `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_product_attribute`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- โครงสร้างตาราง `tbl_size`
 --
 
@@ -243,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id_user`, `id_employee`, `id_profile`, `id_shop`, `user_name`, `password`, `date_add`, `date_upd`, `last_login`) VALUES
-(1, 1, 0, 0, 'admin', '21232f297a57a5a743894a0e4a801fc3', '2015-03-19 00:00:00', '2015-03-19 00:00:00', '0000-00-00 00:00:00');
+(1, 1, 1, 0, 'admin', '21232f297a57a5a743894a0e4a801fc3', '2015-03-19 00:00:00', '2015-03-19 00:00:00', '0000-00-00 00:00:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

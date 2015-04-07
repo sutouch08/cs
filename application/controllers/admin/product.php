@@ -1,10 +1,30 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
+<?php
+class Product extends CI_Controller
+{
+	public $id_menu = 1;
+	public $home;
+	public $layout = "include/template";
+	public $title = "Product";
+	
+	public function __construct()
+	{
+		parent:: __construct();
+		$this->home = "admin/product";
+		$this->load->model("admin/product_model");
+	}
+	
+	public function index()
+	{
+		$rs = $this->product_model->get_data();
+		$data['data'] = $rs;
+		$data['id_menu'] = $this->id_menu;
+		$data['view'] = "admin/product_view";
+		$data['page_title'] = $this->title;
+		$this->load->view($this->layout, $data);
+	}
+	
+	
+}// End class
 
-<body>
-</body>
-</html>
+
+?>

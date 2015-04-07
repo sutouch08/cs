@@ -11,6 +11,18 @@
 			$this->load->view("index" ,$data);	
 		}
 		
+		public function switch_lang($lang="")
+		{
+			if($lang =="" || $lang == "thai")	
+			{
+				$this->session->set_userdata("lang", "english");
+			}else if($lang == "english"){
+				$this->session->set_userdata("lang","thai");
+			}else{
+				$this->session->set_userdata("lang", "english");
+			}
+			echo "ok";
+		}
 	}
 	
 ?>

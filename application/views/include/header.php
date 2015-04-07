@@ -1,7 +1,7 @@
 <?php if($this->session->userdata("id_user") == null){ redirect(base_url()."authentication"); } ?>
 <?php  
-		//	$language = $this->session->userdata("lang") == null?"thai": $this->session->userdata("lang");
-		//	$this->lang->load($language,$language);	
+			$language = $this->session->userdata("lang") == null?"english": $this->session->userdata("lang");
+			$this->lang->load($language,$language);	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +70,7 @@
 				<!-- /section:basics/sidebar.mobile.toggle -->
 				<div class="navbar-header pull-left">
 					<!-- #section:basics/navbar.layout.brand -->
-					<a href="#" class="navbar-brand"><small><i class="fa fa-shield"></i> TITAN ERP</small></a>
+					<a href="#" class="navbar-brand" onClick="switch_lang('<?php echo $this->session->userdata("lang"); ?>');"><small><i class="fa fa-shield"></i>TITAN ERP</small></a>
 					<!-- /section:basics/navbar.layout.brand -->
 					<!-- #section:basics/navbar.toggle -->
 					<!-- /section:basics/navbar.toggle -->

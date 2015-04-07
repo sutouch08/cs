@@ -6,14 +6,14 @@
 		<li class=""><a href="#"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text"> Dashboard </span></a></li><!-- First Level Menu -->  
         <!--/*******************************************************************  เมนูสินค้า  ********************************************************************/-->
         <!-- <li class="active open">  -->
-		<li class=""><a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-tags"></i><span class="menu-text">สินค้า</span><b class="arrow fa fa-angle-down"></b></a><!-- First Level -->
+		<li class=""><a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-tags"></i><span class="menu-text"><?php echo label("products"); ?></span><b class="arrow fa fa-angle-down"></b></a><!-- First Level -->
 			<ul class="submenu">  <!-- Second Level Menu -->
-            	<li class=""><a href="<?php echo valid_menu(1,"admin/product"); ?>"><i class="menu-icon fa fa-caret-right"></i>เพิ่ม/แก้ไข สินค้า</a><b class="arrow"></b></li> <!-- Second Level -->	
-                <li class=""><a href="<?php echo valid_menu(1,"admin/category"); ?>"><i class="menu-icon fa fa-caret-right"></i>เพิ่ม/แก้ไข หมวดหมู่</a><b class="arrow"></b></li> <!-- Second Level -->	
-                <li class=""><a href="<?php echo valid_menu(1,"admin/color"); ?>"><i class="menu-icon fa fa-caret-right"></i>เพิ่ม/แก้ไข สี</a><b class="arrow"></b></li> <!-- Second Level -->	
-                <li class=""><a href="<?php echo valid_menu(1,"admin/color/color_group"); ?>"><i class="menu-icon fa fa-caret-right"></i>เพิ่ม/แก้ไข กลุ่มสี</a><b class="arrow"></b></li> <!-- Second Level -->	
-                <li class=""><a href="<?php echo valid_menu(1,"admin/size"); ?>"><i class="menu-icon fa fa-caret-right"></i>เพิ่ม/แก้ไข ไซด์</a><b class="arrow"></b></li> <!-- Second Level -->	
-                <li class=""><a href="<?php echo valid_menu(1,"admin/attribute"); ?>"><i class="menu-icon fa fa-caret-right"></i>เพิ่ม/แก้ไข คุณลักษณะ</a><b class="arrow"></b></li> <!-- Second Level -->	
+            	<li class=""><a href="<?php echo valid_menu(1,"admin/product"); ?>"><i class="menu-icon fa fa-caret-right"></i><?php echo label("add_edit_product"); ?></a><b class="arrow"></b></li> <!-- Second Level -->	
+                <li class=""><a href="<?php echo valid_menu(1,"admin/category"); ?>"><i class="menu-icon fa fa-caret-right"></i><?php echo label("add_edit_category"); ?></a><b class="arrow"></b></li> <!-- Second Level -->	
+                <li class=""><a href="<?php echo valid_menu(1,"admin/color"); ?>"><i class="menu-icon fa fa-caret-right"></i><?php echo label("add_edit_color"); ?></a><b class="arrow"></b></li> <!-- Second Level -->	
+                <li class=""><a href="<?php echo valid_menu(1,"admin/color/color_group"); ?>"><i class="menu-icon fa fa-caret-right"></i><?php echo label("add_edit_color_group"); ?></a><b class="arrow"></b></li> <!-- Second Level -->	
+                <li class=""><a href="<?php echo valid_menu(1,"admin/size"); ?>"><i class="menu-icon fa fa-caret-right"></i><?php echo label("add_edit_size"); ?></a><b class="arrow"></b></li> <!-- Second Level -->	
+                <li class=""><a href="<?php echo valid_menu(1,"admin/attribute"); ?>"><i class="menu-icon fa fa-caret-right"></i><?php echo label("add_edit_attribute"); ?></a><b class="arrow"></b></li> <!-- Second Level -->	
 			</ul><!-- Second Level -->
 		</li><!-- First Level -->
         <!--/*******************************************************************  จบเมนูสินค้า  ********************************************************************/-->

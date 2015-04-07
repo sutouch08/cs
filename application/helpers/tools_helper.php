@@ -88,4 +88,16 @@ function getEmployeeNameByIdUser($id_user)
 	}
 	return $name;	
 }
+
+function getCategoryById($id_category)
+{
+	$c =& get_instance();
+	$name = "";
+	$rs = $c->db->select("category_name")->get_where("tbl_category", array("id_category"=>$id_category), 1);
+	if($rs->num_rows() == 1)
+	{
+		$name = $rs->row()->category_name;
+	}
+	return $name;
+}
 ?>
