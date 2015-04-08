@@ -32,7 +32,7 @@ function isChecked($val1, $val2)
 function selectColorGroup($id = "")
 {
 	$c =& get_instance();
-	$option = "<option value='0'>------------ โปรดเลือก --------</option>";
+	$option = "<option value='0'>Choose color...</option>";
 	$select = "";
 	$rs = $c->color_model->get_group();
 	if($rs != false)
@@ -44,6 +44,22 @@ function selectColorGroup($id = "")
 				if($ro->id_color_group == $id){ $select = "selected='selected'"; }else{ $select = ""; }
 				$option .= "<option value='".$ro->id_color_group."' ".$select." >".$ro->group_name."</option>";
 			}
+		}
+	}
+	return $option;
+}
+
+function selectCategory($id="")
+{
+	$c =& get_instance();
+	$option ="<option value='0'>HOME</option>";
+	$rs = $c->db->order_by("category_name", "asc")->get_where("tbl_category", array("id_category !="=>1));
+	if($rs->num_rows() >0)
+	{
+		foreach($rs->result() as $ro)
+		{
+			if($ro->id_category == $id){ $select = "selected='selected'"; }else{ $select = ""; }
+			$option .= "<option value='".$ro->id_category."' ".$select.">".$ro->category_name."</option>";
 		}
 	}
 	return $option;
