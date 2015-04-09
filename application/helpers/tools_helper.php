@@ -52,7 +52,7 @@ function selectColorGroup($id = "")
 function selectCategory($id="")
 {
 	$c =& get_instance();
-	$option ="<option value='0'>HOME</option>";
+	$option ="<option value='1'>HOME</option>";
 	$rs = $c->db->order_by("category_name", "asc")->get_where("tbl_category", array("id_category !="=>1));
 	if($rs->num_rows() >0)
 	{

@@ -32,6 +32,12 @@ $lang['product_code'] = "Product code";
 $lang['product_name'] = "Product name";
 $lang['product_name_thai'] = "Product name (Thai)";
 $lang['product_name_english'] = "Product name (English)";
+$lang['description_thai'] = "Description (Thai)";
+$lang['description_english'] = "Description (English)";
+$lang['allow_under_zero'] = "Allow under zero";
+$lang['default'] = "Default";
+$lang['allow'] = "Allowed";
+$lang['not_allow'] = "Not allow";
 
 
 ?>

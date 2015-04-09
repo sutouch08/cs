@@ -13,4 +13,9 @@ function thaiDate($date="", $sep="-")
 	return $date;
 }
 
+function NOW()
+{
+	return date("Y-m-d H:i:s");	
+}
+
 ?>

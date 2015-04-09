@@ -62,7 +62,7 @@
                 </tr>
         <?php endforeach; ?>
         <?php else : ?>
-        <tr><td colspan="7" align="center" ><h1>------------------------- ไม่มีรายการ  -------------------</h1></td></tr>
+        <tr><td colspan="11" align="center" ><h1>------------------------- ไม่มีรายการ  -------------------</h1></td></tr>
     <?php endif; ?>
 		</table>
 </div><!-- End col-lg-12 -->

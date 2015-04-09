@@ -1,5 +1,6 @@
 <?php
 include("standard.php");
+include("error.php");
 /********************* menu Product  ********************/
 $lang['products'] = "Products";
 	$lang['add_edit_product'] = "Add/edit product";
