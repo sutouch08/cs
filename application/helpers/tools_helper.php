@@ -29,6 +29,17 @@ function isChecked($val1, $val2)
 	}
 	return $value;
 }
+
+function isSelected($val1, $val2)
+{
+	$value = "";
+	if($val1 == $val2)
+	{
+		$value = "selected='selected'";
+	}
+	return $value;
+}
+
 function selectColorGroup($id = "")
 {
 	$c =& get_instance();
@@ -49,9 +60,63 @@ function selectColorGroup($id = "")
 	return $option;
 }
 
+function selectColor($id="")
+{
+	$c =& get_instance();
+	$option = "<option value='0'>Choose color...</option>";
+	$select = "";
+	$rs = $c->color_model->get_color();
+	if($rs != false)
+	{
+		foreach($rs as $ro)
+		{
+			if($ro->id_color == $id){ $select = "selected='selected'"; }else{ $select = ""; }
+			$option .= "<option value='".$ro->id_color."' ".$select." >".$ro->color_code." : ".$ro->color_name."</option>";
+		}
+	}
+	return $option;	
+}
+
+function selectSize($id="")
+{
+	$c =& get_instance();
+	$c->load->model("admin/size_model");
+	$option = "<option value='0'>Choose size...</option>";
+	$select = "";
+	$rs = $c->size_model->get_data();
+	if($rs != false)
+	{
+		foreach($rs as $ro)
+		{
+			if($ro->id_size == $id){ $select = "selected='selected'"; }else{ $select = ""; }
+			$option .= "<option value='".$ro->id_size."' ".$select.">".$ro->size_code." : ".$ro->size_name."</option>";
+		}
+	}
+	return $option;
+}
+
+function selectAttribute($id="")
+{
+	$c =& get_instance();
+	$c->load->model("admin/attribute_model");
+	$option = "<option value='0'>Choose attribute...</option>";
+	$select = "";
+	$rs = $c->attribute_model->get_data();
+	if($rs != false)
+	{
+		foreach($rs as $ro)
+		{
+			if($ro->id_attribute == $id){ $select = "selected='selected'"; }else{ $select = ""; }
+			$option .= "<option value='".$ro->id_attribute."' ".$select.">".$ro->attribute_code." : ".$ro->attribute_name."</option>";
+		}
+	}
+	return $option;
+}
+
 function selectCategory($id="")
 {
 	$c =& get_instance();
+	$c->load->model("admin/color_model");
 	$option ="<option value='1'>HOME</option>";
 	$rs = $c->db->order_by("category_name", "asc")->get_where("tbl_category", array("id_category !="=>1));
 	if($rs->num_rows() >0)
@@ -115,5 +180,18 @@ function getCategoryById($id_category)
 		$name = $rs->row()->category_name;
 	}
 	return $name;
+}
+
+function category_product_check($id_category, $category_product)
+{
+		$checked = "";
+		foreach($category_product as $rs)
+		{
+			if($id_category == $rs->id_category)
+			{
+				$checked = "checked='checked'";
+			}
+		}
+		return $checked;
 }
 ?>

@@ -76,7 +76,7 @@ class Product extends CI_Controller
 	}
 
 
-public function edit_product($id)
+public function edit_product($id, $tab="")
 	{
 		if( $this->input->post("edit") )
 		{
@@ -103,7 +103,7 @@ public function edit_product($id)
 			$category = $this->input->post("category");
 			if( $this->verify->validate($this->id_menu, "add") )
 			{
-			$id = $this->product_model->update($id, $data);
+				$this->product_model->update($id, $data);
 				if($this->product_model->drop_category_product($id))
 				{
 					foreach($category as $cate)
@@ -122,15 +122,20 @@ public function edit_product($id)
 			$this->load->model("admin/category_model");
 			$rs = $this->category_model->get_category_by_parent(1);
 			$ro = $this->category_model->get_data();
-			$ra = $this->product_model->get_product_attribute_data($id);
-			$ri = $this->product_model->get_product_attribute_images();
+			$rc = $this->product_model->get_category_product($id);
+			$rp = $this->product_model->get_data($id);
+			$ra = $this->product_model->get_attribute_data_by_product($id);
+			$im = $this->product_model->get_image_product($id);
+			$data['id_product'] = $id;
 			$data['cate'] = $rs;
-			$data['data'] = $ro;
-			$data['product_attribute_data'] = $ra;
-			$data['image_set'] = $ri;
+			$data['cate_data'] = $rc;
+			$data['product_data'] = $rp;
+			$data['attribute'] = $ra;
+			$data['image_list'] = $im;
 			$data['id_menu'] = $this->id_menu;
-			$data['view'] = "admin/add_product_view";
+			$data['view'] = "admin/edit_product_view";
 			$data['page_title'] = $this->title;
+			$data['tab'] = $tab;
 			$this->load->view($this->layout, $data);
 		}		
 	}
@@ -150,7 +155,7 @@ public function display_category($parent, $checked="", $me=""){
 									<span class='tree-branch-name'>
 										<span class='tree-label'>
 											 <label for='". $ra->category_name."'>
-												 <input type='checkbox' name='category[]' value='". $ra->id_category."' id='".$ra->category_name."' class='ace' ".isChecked($ra->id_category, $checked)." />
+												 <input type='checkbox' name='category[]' value='". $ra->id_category."' id='".$ra->category_name."' class='ace' ".category_product_check($ra->id_category, $checked)." />
 												 <span class='lbl'> ".$ra->category_name."<br></span>
 											</label>
 										</span>

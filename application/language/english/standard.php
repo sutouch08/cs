@@ -16,7 +16,10 @@ $lang['date'] = "Date";
 $lang['action'] = "Actions";
 $lang['status'] = "Status";
 
-
+$lang['reference'] = "Reference";
+$lang['color'] = "Color";
+$lang['size'] = "Size";
+$lang['attribute'] = "Attribute";
 $lang['image'] = "Image";
 $lang['price'] = "Price";
 $lang['cost'] = "Cost";
@@ -24,6 +27,10 @@ $lang['weight'] = "Weight";
 $lang['width'] = "Width";
 $lang['length'] = "Lenght";
 $lang['height'] = "Height";
+$lang['barcode'] = "Barcode";
+$lang['barcode_item'] = "Barcode item";
+$lang['barcode_pack'] = "Barcode package";
+$lang['qty'] = "Quantity";
 
 
 $lang['category'] = "Category";
@@ -39,5 +46,5 @@ $lang['default'] = "Default";
 $lang['allow'] = "Allowed";
 $lang['not_allow'] = "Not allow";
 
-
+$lang['empty_content'] = "------------- No Data --------------";
 ?>

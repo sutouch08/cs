@@ -22,6 +22,40 @@ class Product_model extends CI_Model
 	}
 	
 	
+	public function update($id, $data)
+	{
+		$rs = $this->db->where("id_product", $id)->update("tbl_product", $data);	
+		if($rs)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	
+	public function get_category_product($id)
+	{
+		$rs = $this->db->select("id_category")->get_where("tbl_category_product", array("id_product"=>$id));	
+		if($rs->num_rows() > 0)
+		{
+			return $rs->result();
+		}else{
+			return false;
+		}
+	}
+	
+	public function get_attribute_data_by_product($id)
+	{
+		$rs = $this->db->get_where("tbl_product_attribute", array("id_product"=>$id));
+		if($rs->num_rows() >0)
+		{
+			return $rs->result();
+		}else{
+			return false;
+		}
+	}
+	
 	public function insert_id($data) // insert database and return id record if success
 	{
 		$rs = $this->db->insert("tbl_product", $data);
@@ -57,6 +91,17 @@ class Product_model extends CI_Model
 		if($rs)
 		{
 			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function get_image_product($id)
+	{
+		$rs = $this->db->select("id_image")->where("id_product", $id)->get("tbl_image");
+		if($rs->num_rows() >0)
+		{
+			return $rs->result();
 		}else{
 			return false;
 		}
