@@ -31,6 +31,7 @@ $lang['barcode'] = "บาร์โค้ด";
 $lang['barcode_item'] = "บาร์โค้ดสินค้า";
 $lang['barcode_pack'] = "บาร์โค้ดแพ็ค";
 $lang['qty'] = "จำนวน";
+$lang['qty_pack'] = "จำนวนในแพ็ค";
 
 
 $lang['category'] = "หมวดหมู่";

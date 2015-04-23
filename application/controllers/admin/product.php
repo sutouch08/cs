@@ -5,12 +5,24 @@ class Product extends CI_Controller
 	public $home;
 	public $layout = "include/template";
 	public $title = "Product";
+	public $original_path;
+	public $product_path;
+	public $image_path;
 	
 	public function __construct()
 	{
 		parent:: __construct();
 		$this->home = base_url()."admin/product";
 		$this->load->model("admin/product_model");
+		$this->image_path = "images";
+		$this->original_path = "images/original";
+		$this->product_path = "images/product/";
+		$this->image_use_size = array(
+				"default" => 600,
+				"mini" => 50,
+				"medium" => 150,
+				"large" => 800
+		);
 	}
 	
 	public function index()
@@ -179,6 +191,115 @@ public function display_category($parent, $checked="", $me=""){
 		}
 	}
 	
+	
+	public function upload(){
+		//$file = $this->input->post("file");
+		$id_product = $this->input->post("id_product");
+		 foreach($_FILES['file'] as $key=>$val)
+        {
+            $i = 1;
+            foreach($val as $v)
+            {
+                $field_name = "file_".$i;
+                $_FILES[$field_name][$key] = $v;
+                $i++;   
+            }
+        }
+        // Unset the useless one ;)
+        unset($_FILES['file']);
+		$i = 1;
+		foreach($_FILES as $img => $value):
+			$i++;
+			$config = array(   // initial config for upload class
+				"allowed_types" => "gif|jpg|jpeg|png",
+				"upload_path" => $this->original_path,
+				"max_size" => 2048,
+				"overwrite" => TRUE
+			);
+			$this->load->library("upload", $config);	
+			if(!$this->upload->do_upload($img)){
+				setError($this->upload->display_errors());
+			}else{
+			
+			$max = $this->product_model->max_id_image();
+			$id_image = ($max + 1);
+			$img_name = $id_image;
+			$count = strlen($id_image);
+			$path = str_split($id_image);
+			$image_path = "";
+			$n=0;
+					while($n<$count){
+						$image_path .= "/".$path[$n];
+						$n++;
+					}
+			if (!is_dir($this->product_path.$image_path)) {     mkdir($this->product_path.$image_path, 0777, true);   }	
+			$image_path .= "/";
+			$data = $this->upload->data(); // pass data when upload complete
+			$this->load->library("image_lib");
+			$h_size = 800;
+			$w_size = 800;
+			$dim = ($data['image_width'] / $data['image_height']) - 1;
+			$min_w = ($dim >0)? $data['image_height'] : $data['image_width'];
+			$min_h = ($dim >0)? $data['image_height'] : $data['image_width'];
+			$y_axis = ($data['image_height']/2) - ($min_w/2);
+			$x_axis = ($data['image_width']/2) - ($min_h/2);
+			$config = array(  /// setup configuration for crop image method
+				"source_image" => $data['full_path'],
+				"maintain_ratio" => FALSE,
+				"width" => $min_w,
+				"height" => $min_h,
+				"y_axis" => $y_axis,
+				"x_axis" => $x_axis,
+			);	
+			$this->image_lib->initialize($config); /// apply configuration
+			if(!$this->image_lib->crop()){   /// do crop image
+					echo $this->image_lib->display_errors();
+				}
+				$this->image_lib->clear(); // clear memory
+			 foreach($this->image_use_size as $image=>$size){  /// resize image for each user size ///
+				   $config = array(  /// setup config for resize image
+						 "source_image"=>$data['full_path'],  /// full path to source image (data from upload class)
+						 "maintain_ratio"=>TRUE,
+						 "width"=>$size, 
+						 "height"=>$size,
+						 "new_image" => $this->image_path."/product$image_path".$image."_".$img_name.".jpg" // copy source file to new path
+					 );   
+					$this->image_lib->initialize($config); // apply configuration
+					if(!$this->image_lib->resize()){  // do resize image
+						echo $this->image_lib->display_errors();
+					}
+					 $this->image_lib->clear(); /// reset 
+			   }/// End foreach
+			   $max_position_image = $this->product_model->max_position_image($id_product);
+			   $next_position_image = $max_position_image->position + 1;
+			   $cover_image = $this->product_model->check_cover_image($id_product);
+			   if($cover_image > 0){
+				   $cover = 0;
+			   }else{
+				   $cover = 1;
+			   }
+			   $insert = array(
+					"id_product"=>$id_product,
+					"id_image"=>$id_image,
+					"position"=>$next_position_image,
+					"cover"=>$cover
+				);
+				$this->product_model->insert_image($insert);
+			}
+		endforeach;     
+		$this->edit_product($id_product, "tab3");
+		
+	}/// End of do_upload
+	
+	public function delete_image($id,$id_product){
+		if($this->product_model->delete_img($id))
+		{			
+				delete_image($id);			
+		}else{
+			setError("Cannot delete image");
+		} 
+		$this->edit_product($id_product,"tab3");
+	}
 }// End class
 
 

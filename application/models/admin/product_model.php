@@ -98,7 +98,7 @@ class Product_model extends CI_Model
 	
 	public function get_image_product($id)
 	{
-		$rs = $this->db->select("id_image")->where("id_product", $id)->get("tbl_image");
+		$rs = $this->db->where("id_product", $id)->get("tbl_image");
 		if($rs->num_rows() >0)
 		{
 			return $rs->result();
@@ -124,6 +124,49 @@ class Product_model extends CI_Model
 		}
 	}
 	
+	// return max id of images
+	public function max_id_image(){
+		$rs = $this->db->select_max('id_image')->get("tbl_image");
+		if($rs->num_rows() == 1){
+			return $rs->row()->id_image;
+		}else{
+			return 0;
+		}
+	}
+	
+	public function max_position_image($id_product){
+		$this->db->select_max('position',"position");
+		$this->db->where("id_product", $id_product);
+		$query =$this->db->get("tbl_image");
+		return $query->row();
+	}
+	
+	public function check_cover_image($id_product){
+		$this->db->where('cover', 1);
+		$this->db->where("id_product", $id_product);
+		$rs = $this->db->get("tbl_image");
+		return $rs->num_rows();
+	}
+	
+	public function image_data($id){
+		$this->db->where("id_product", $id);
+		$query =$this->db->get("tbl_image");
+		return $query->result();
+	}
+	
+	public function insert_image($data){
+		$this->db->insert("tbl_image", $data);
+	}
+	
+	public function delete_img($id){
+		$rs = $this->db->delete("tbl_image", array("id_image" =>$id));
+		if($rs)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
 }// End class
 
 ?>

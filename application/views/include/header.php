@@ -45,6 +45,8 @@
   	<script src="<?php echo base_url(); ?>assets/js/jquery-ui-1.10.4.custom.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/date-time/bootstrap-datepicker.js" ></script>
+    <script src="<?php echo base_url(); ?>assets/js/ace/ace.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/ace/elements.fileinput.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/sweet-alert.js"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets//css/sweet-alert.css">
 		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->

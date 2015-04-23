@@ -119,38 +119,7 @@
 					 <input type="text" name="price" id="price" class="input-xlarge" value="<?php echo $pd->product_price; ?>" /><span style="color:red">  *</span>
                 </div>
             </div><!-- End group -->
-            <div class="profile-info-row"><!-- group -->
-                <div class="profile-info-name">
-                	<label><?php echo label("weight"); ?></label>
-                </div>
-                <div class="profile-info-value">
-					 <input type="text" name="weight" id="weight" class="input-xlarge" value="<?php echo $pd->weight; ?>" /><span>  KGS. </span>
-                </div>
-            </div><!-- End group -->
-            <div class="profile-info-row"><!-- group -->
-                <div class="profile-info-name">
-                	<label><?php echo label("width"); ?></label>
-                </div>
-                <div class="profile-info-value">
-					 <input type="text" name="width" id="width" class="input-xlarge" value="<?php echo $pd->width; ?>" /><span>  CM.</span>
-                </div>
-            </div><!-- End group -->
-            <div class="profile-info-row"><!-- group -->
-                <div class="profile-info-name">
-                	<label><?php echo label("length"); ?></label>
-                </div>
-                <div class="profile-info-value">
-					 <input type="text" name="length" id="length" class="input-xlarge" value="<?php echo $pd->length; ?>" /><span>  CM.</span>
-                </div>
-            </div><!-- End group -->
-            <div class="profile-info-row"><!-- group -->
-                <div class="profile-info-name">
-                	<label><?php echo label("height"); ?></label>
-                </div>
-                <div class="profile-info-value">
-					 <input type="text" name="height" id="height" class="input-xlarge" value="<?php echo $pd->height; ?>" /><span>  CM.</span>
-                </div>
-            </div><!-- End group -->
+            
             
             
             <div class="profile-info-row"><!-- group -->
@@ -230,10 +199,6 @@
 <?php 
 			$cost = $pd->product_cost; 
 			$price = $pd->product_price;
-			$weight = $pd->weight;
-			$width = $pd->width;
-			$length = $pd->length;
-			$height = $pd->height;
 ?>		
 <?php endforeach; ?>	
 <form method="post" action="<?php echo $this->home; ?>/add_attribute">
@@ -285,15 +250,8 @@
                     </select>
                 </div>
             </div><!-- End group -->
+            
             <div class="col-lg-6"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("weight")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"weight","id"=>"weight", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $weight); echo "&nbsp;".label('kg'); ?>
-                </div>
-            </div><!-- End group -->
-            <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("attribute")); ?>
                 </div>
@@ -303,14 +261,7 @@
                     </select>
                 </div>
             </div><!-- End group -->
-            <div class="col-lg-6"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("width")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"width","id"=>"width", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $width); echo "&nbsp;".label('cm');?>
-                </div>
-            </div><!-- End group -->
+           
             <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("barcode")); ?>
@@ -319,15 +270,8 @@
                     <?php echo form_input(array("name"=>"barcode","id"=>"barcode", "type"=>"text", "autocomplete"=>"off", "class"=>"input-xlarge"), ""); ?>
                 </div>
             </div><!-- End group -->
+           
             <div class="col-lg-6"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("length")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"length","id"=>"length", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $length); echo "&nbsp;".label('cm'); ?>
-                </div>
-            </div><!-- End group -->
-            <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("barcode_pack")); ?>
                 </div>
@@ -335,14 +279,7 @@
                     <?php echo form_input(array("name"=>"barcode_pack","id"=>"barcode_pack", "type"=>"text", "autocomplete"=>"off", "class"=>"input-xlarge"), ""); ?>
                 </div>
             </div><!-- End group -->
-            <div class="col-lg-6"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("height")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"height","id"=>"height", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $height);  echo "&nbsp;".label('cm');?>
-                </div>
-            </div><!-- End group -->
+            
              <div class="col-lg-12" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("qty")); ?>
@@ -361,7 +298,7 @@
                      <label for="<?php echo $im->id_image;?>">
 						 <input type="radio" name="id_image" value="<?php echo $im->id_image;?>" id="<?php echo $im->id_image;?>" class="ace">
                          <span class="lbl">
-                    	<img src="<?php echo image($im->id_image, 1); ?>"  />   
+                    	<img src="<?php echo image_path($im->id_image, 1); ?>"  />   
                         </span>
                      </label> 
                     <?php endforeach;?>
@@ -432,15 +369,8 @@
                     </select>
                 </div>
             </div><!-- End group -->
+            
             <div class="col-lg-6"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("weight")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"weight","id"=>"weight", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $att->weight); echo "&nbsp;".label('kg'); ?>
-                </div>
-            </div><!-- End group -->
-            <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("attribute")); ?>
                 </div>
@@ -450,14 +380,7 @@
                     </select>
                 </div>
             </div><!-- End group -->
-            <div class="col-lg-6"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("width")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"width","id"=>"width", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $att->width); echo "&nbsp;".label('cm');?>
-                </div>
-            </div><!-- End group -->
+            
             <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("barcode")); ?>
@@ -466,15 +389,8 @@
                     <?php echo form_input(array("name"=>"barcode","id"=>"barcode", "type"=>"text", "autocomplete"=>"off", "class"=>"input-xlarge"), $att->barcode); ?>
                 </div>
             </div><!-- End group -->
-            <div class="col-lg-6"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("length")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"length","id"=>"length", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $att->length); echo "&nbsp;".label('cm'); ?>
-                </div>
-            </div><!-- End group -->
-            <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
+           
+            <div class="col-lg-6" ><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("barcode_pack")); ?>
                 </div>
@@ -482,14 +398,7 @@
                     <?php echo form_input(array("name"=>"barcode_pack","id"=>"barcode_pack", "type"=>"text", "autocomplete"=>"off", "class"=>"input-xlarge"), ""); ?>
                 </div>
             </div><!-- End group -->
-            <div class="col-lg-6"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("height")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"height","id"=>"height", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $att->height);  echo "&nbsp;".label('cm');?>
-                </div>
-            </div><!-- End group -->
+            
              <div class="col-lg-12" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("qty")); ?>
@@ -508,7 +417,7 @@
                      <label for="<?php echo $im->id_image;?>">
 						 <input type="radio" name="id_image" value="<?php echo $im->id_image;?>" id="<?php echo $im->id_image;?>" class="ace">
                          <span class="lbl">
-                    	<img src="<?php echo image($im->id_image, 1); ?>"  />   
+                    	<img src="<?php echo image_path($im->id_image, 1); ?>"  />   
                         </span>
                      </label> 
                     <?php endforeach;?>
@@ -577,8 +486,56 @@
 		</table>
         </div>
 </div>
+
 <div id="tab3" class="tab-pane fade <?php echo $tab3; ?> in">
-<h1> tab 3</h1>
+
+	<form method="post" action="<?php echo $this->home; ?>/upload" enctype="multipart/form-data">
+    <?php echo form_input(array("name"=>"id_product","id"=>"id_product", "type"=>"hidden"), $id_product); ?>
+    
+    <table style="width:100%; border:0px; margin-bottom:10px;">
+    <tr><td width="50%">
+		<label class="ace-file-input ace-file-multiple">
+        <input multiple="" id="id-input-file-3" type="file" name="file[]" />
+    </label>
+    </td>
+    <td style="padding-left:15px; vertical-align:text-bottom;">
+    
+       <button type="submit" class="btn btn-app btn-purple btn-xs" style='display:none;' id="upload"  ><i class="ace-icon fa fa-cloud-upload bigger-80"></i>Upload</button>
+   </td></tr></table>
+		<table class='table table-striped' id="ac_chart" style="width:100%" >
+    	<thead>
+    	<tr style='font-size:12px;'>
+			<th style='width:60%;'><?php echo label("1"); ?></th>
+            <th style='width:10%; text-align: right;'><?php echo label("2"); ?></th>
+            <th style="width:10%; text-align: right;"><?php echo label("3"); ?></th>
+            <th style='width:10%; text-align:  center;'><?php echo label("4"); ?></th>
+           </tr>
+		</thead>
+		<tbody> 
+        <?php if($image_list !=false) : ?>
+		<?php foreach($image_list as $im): ?>
+        		<tr style="font-size:12px;">
+                    <td style="vertical-align:middle;"><img src="<?php echo image_path($im->id_image,2); ?>"  /> </td>
+                    <td style="vertical-align:middle;" align="right"><?php echo $im->position; ?></td>
+                    <td align="right" style="vertical-align:middle;"><?php echo isActived(1,$im->cover); ?></td>
+                    <td align="center" style="vertical-align:middle;"> 
+                    <a href="<?php echo $this->home; ?>/delete_image/<?php echo $im->id_image; ?>/<?php echo $id_product; ?>">
+                            <button type="button" class="btn btn-danger" onclick="return confirm('<?php echo label("delete_confirm"); ?>');"  <?php echo $access['delete']; ?>><i class="fa fa-trash"></i></button>
+                            </a>
+                            </td>
+            </tr>
+         <?php endforeach; ?>
+         <?php else : ?>
+         <tr style="font-size:12px;">
+                    <td style="vertical-align:middle;">&nbsp;</td>
+                    <td style="vertical-align:middle;" align="right">&nbsp;</td>
+                    <td align="right" style="vertical-align:middle;">&nbsp;</td>
+                    <td align="center" style="vertical-align:middle;">&nbsp;</td>
+            </tr>
+         <?php endif; ?>
+                </tbody>
+		</table>    
+		</form>
 </div>
 </div><!-- end of tab contents -->
 </div><!-- end of tabbable -->
@@ -601,5 +558,17 @@ function save()
 	});
 }
 
+$('#id-input-file-3').ace_file_input({
+					style:'well',
+					btn_choose:'<?php echo label("upload_image");?>',
+					btn_change:null,
+					no_icon:'ace-icon ace-icon fa fa-picture-o',
+					droppable:true,
+					thumbnail:'small'
+					,
+				});
+$('#id-input-file-3').click(function(){
+	$("#upload").attr("style","");
+});
 </script>
 <?php endif; ?>

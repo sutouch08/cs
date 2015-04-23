@@ -194,4 +194,54 @@ function category_product_check($id_category, $category_product)
 		}
 		return $checked;
 }
+
+function image_path($id_image, $use_size=1)
+{
+	switch($use_size)
+	{
+		case 1 :
+		$prefix = "mini_";
+		break;
+		case 2 :
+		$prefix = "medium_";
+		break;
+		case 3 :
+		$prefix = "large_";
+		break;
+		case 4 :
+		$prefix = "default_";
+		break;
+		default :
+		$prefix = "default_";
+		break;
+	}
+	$image_path = base_url()."images/product";
+	$count = strlen($id_image);
+	$path = str_split($id_image);
+	$n=0;
+	while($n<$count)
+	{
+		$image_path .= "/".$path[$n];
+		$n++;
+	}
+	return $image_path."/".$prefix.$id_image.".jpg";
+}
+
+function delete_image($id_image)
+{
+	$img_size = array("mini_", "medium_", "large_", "default_");
+	$image_path = "images/product";
+	$count = strlen($id_image);
+	$path = str_split($id_image);
+	$n=0;
+	while($n<$count)
+	{
+		$image_path .= "/".$path[$n];
+		$n++;
+	}
+	foreach($img_size as $prefix)
+	{
+		unlink($image_path."/".$prefix.$id_image.".jpg");
+	}
+}
 ?>

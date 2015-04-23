@@ -31,6 +31,7 @@ $lang['barcode'] = "Barcode";
 $lang['barcode_item'] = "Barcode item";
 $lang['barcode_pack'] = "Barcode package";
 $lang['qty'] = "Quantity";
+$lang['qty_pack'] = "Qty in pack";
 
 
 $lang['category'] = "Category";
