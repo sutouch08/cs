@@ -47,6 +47,12 @@ $lang['default'] = "ค่าเริ่มต้น";
 $lang['allow'] = "อนุญาติ";
 $lang['not_allow'] = "ไม่อนุญาติ";
 
-
+$lang['profile'] = "โปรไฟล์";
+$lang['basic_info'] = "ข้อมูลพื้นฐาน";
+$lang['setting'] = "การตั้งค่า";
+$lang['password'] = "รหัสผ่าน";
+$lang['language'] = "ภาษา";
+$lang['welcome'] = "ยินดีต้อนรับ";
+$lang['logout'] = "ออกจากระบบ";
 $lang['empty_content'] = "------------- ไม่มีรายการ --------------";
 ?>

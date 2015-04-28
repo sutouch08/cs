@@ -41,17 +41,16 @@ class Product extends CI_Controller
 		{
 			$data['product_code'] = $this->input->post("product_code");
 			$name = $this->input->post("product_name");
+			$desc = $this->input->post("description");
 			$data['product_name'] = $name['thai'];
 			$data['product_name_en'] = $name['english'];
+			if($name['english'] =="" ){ $data['product_name_en'] = $name['thai']; }
 			$data['default_category_id'] = $this->input->post("default_category");
 			$data['product_cost'] = $this->input->post("cost");
 			$data['product_price'] = $this->input->post("price");
-			$data['weight'] = $this->input->post("weight");
-			$data['width'] = $this->input->post("width");
-			$data['length'] = $this->input->post("length");
-			$data['height'] = $this->input->post("height");
-			$data['description'] = $this->input->post("description[thai]");
-			$data['description_en'] = $this->input->post("description[english]");
+			$data['description'] = $desc['thai'];
+			$data['description_en'] = $desc['english'];
+			if( $desc['english'] == "" ){ $data['description_en'] = $desc['thai']; }
 			$data['active'] = $this->input->post("active");
 			$data['show'] = $this->input->post("visible");
 			$data['under_zero'] = $this->input->post("allow_under_zero");
@@ -100,10 +99,6 @@ public function edit_product($id, $tab="")
 			$data['default_category_id'] = $this->input->post("default_category");
 			$data['product_cost'] = $this->input->post("cost");
 			$data['product_price'] = $this->input->post("price");
-			$data['weight'] = $this->input->post("weight");
-			$data['width'] = $this->input->post("width");
-			$data['length'] = $this->input->post("length");
-			$data['height'] = $this->input->post("height");
 			$desc = $this->input->post("description");
 			$data['description'] = $desc['thai'];
 			if($desc['english'] == ""){ $desc['english'] = $desc['thai']; }

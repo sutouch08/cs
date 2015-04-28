@@ -11,7 +11,7 @@
     <div class="col-lg-6">
     	<p class='pull-right'>
         	<a href="<?php echo $this->home."/add_product"; ?>">
-        		<button class='btn btn-success' <?php echo $access['add']; ?>><i class='fa fa-plus'></i>&nbsp; <?php label("add"); ?></button>
+        		<button class='btn btn-success' <?php echo $access['add']; ?>><i class='fa fa-plus'></i>&nbsp; <?php echo label("add"); ?></button>
              </a>
          </p>
     </div>

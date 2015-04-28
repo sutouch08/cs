@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('ed3652ed2d217f42844ea27dc8433ee9', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429785060, 'a:4:{s:9:"user_data";s:0:"";s:7:"id_user";s:1:"1";s:9:"user_name";s:5:"admin";s:10:"id_profile";s:1:"1";}');
+('578d3efdaefed74853936dd1a1d908d1', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1430217080, 'a:5:{s:9:"user_data";s:0:"";s:7:"id_user";s:1:"1";s:9:"user_name";s:5:"admin";s:10:"id_profile";s:1:"1";s:4:"lang";s:4:"thai";}');
 
 -- --------------------------------------------------------
 
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `tbl_category_product` (
   `id_category` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   PRIMARY KEY (`id_category_product`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
 
 --
 -- dump ตาราง `tbl_category_product`
@@ -138,13 +138,20 @@ CREATE TABLE IF NOT EXISTS `tbl_category_product` (
 
 INSERT INTO `tbl_category_product` (`id_category_product`, `id_category`, `id_product`) VALUES
 (28, 6, 1),
-(43, 6, 2),
-(42, 3, 2),
-(41, 2, 2),
+(47, 6, 2),
+(46, 3, 2),
+(45, 2, 2),
 (27, 3, 1),
 (26, 2, 1),
 (25, 1, 1),
-(40, 1, 2);
+(44, 1, 2),
+(48, 1, 3),
+(49, 2, 3),
+(50, 3, 3),
+(51, 2, 4),
+(52, 3, 4),
+(53, 2, 5),
+(54, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -281,6 +288,27 @@ INSERT INTO `tbl_image` (`id_image`, `id_product`, `position`, `cover`) VALUES
 -- --------------------------------------------------------
 
 --
+-- โครงสร้างตาราง `tbl_personal_config`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_personal_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_employee` int(11) NOT NULL,
+  `language` set('thai','english') NOT NULL DEFAULT 'thai',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- dump ตาราง `tbl_personal_config`
+--
+
+INSERT INTO `tbl_personal_config` (`id`, `id_user`, `id_employee`, `language`) VALUES
+(1, 1, 1, 'thai');
+
+-- --------------------------------------------------------
+
+--
 -- โครงสร้างตาราง `tbl_product`
 --
 
@@ -300,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `tbl_product` (
   `date_add` datetime NOT NULL,
   `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_product`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- dump ตาราง `tbl_product`
@@ -308,7 +336,10 @@ CREATE TABLE IF NOT EXISTS `tbl_product` (
 
 INSERT INTO `tbl_product` (`id_product`, `product_code`, `product_name`, `product_name_en`, `product_cost`, `product_price`, `default_category_id`, `description`, `description_en`, `active`, `show`, `under_zero`, `date_add`, `date_upd`) VALUES
 (1, 'KFB-S018', 'เสื้อกีฬา', 'sport shirt', '0.00', '0.00', 3, NULL, NULL, 1, 1, 'default', '2015-04-09 15:25:03', '2015-04-20 07:10:34'),
-(2, 'KFB-S0195', 'เสื้อกีฬาxx', 'sportxx', '100.00', '165.00', 2, 'xxxxxxx', 'xxxxxxx', 1, 1, 'default', '2015-04-20 15:46:48', '2015-04-20 09:57:22');
+(2, 'KFB-S0195', 'เสื้อกีฬาxx', 'sportxx', '100.00', '165.00', 2, 'xxxxxxx', 'xxxxxxx', 0, 0, 'default', '2015-04-28 13:46:09', '2015-04-28 06:46:09'),
+(3, 'KFB-S052', 'เสื้อกีฬาพิมพ์ลาย', '', '100.15', '365.00', 3, '0', '0', 1, 1, 'default', '2015-04-28 14:09:52', '2015-04-28 07:09:52'),
+(4, 'KFB-S020', 'เสื้อยืด', '', '100.00', '300.00', 3, '0', '0', 1, 1, 'default', '2015-04-28 14:11:20', '2015-04-28 07:11:20'),
+(5, 'KFB-S021', 'เสื้อเก่าพิมพ์ลาย', 'เสื้อเก่าพิมพ์ลาย', '90.00', '200.00', 3, 'เสื้อเก่าคลาสสิค ราคาแพง', 'เสื้อเก่าคลาสสิค ราคาแพง', 1, 1, 'default', '2015-04-28 14:17:30', '2015-04-28 07:17:30');
 
 -- --------------------------------------------------------
 

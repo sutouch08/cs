@@ -110,40 +110,6 @@
             </div><!-- End group -->
             <div class="profile-info-row"><!-- group -->
                 <div class="profile-info-name">
-                	<label><?php echo label("weight"); ?></label>
-                </div>
-                <div class="profile-info-value">
-					 <input type="text" name="weight" id="weight" class="input-xlarge" value="0.00" /><span>  KGS. </span>
-                </div>
-            </div><!-- End group -->
-            <div class="profile-info-row"><!-- group -->
-                <div class="profile-info-name">
-                	<label><?php echo label("width"); ?></label>
-                </div>
-                <div class="profile-info-value">
-					 <input type="text" name="width" id="width" class="input-xlarge" value="0.00" /><span>  CM.</span>
-                </div>
-            </div><!-- End group -->
-            <div class="profile-info-row"><!-- group -->
-                <div class="profile-info-name">
-                	<label><?php echo label("length"); ?></label>
-                </div>
-                <div class="profile-info-value">
-					 <input type="text" name="length" id="length" class="input-xlarge" value="0.00" /><span>  CM.</span>
-                </div>
-            </div><!-- End group -->
-            <div class="profile-info-row"><!-- group -->
-                <div class="profile-info-name">
-                	<label><?php echo label("height"); ?></label>
-                </div>
-                <div class="profile-info-value">
-					 <input type="text" name="height" id="height" class="input-xlarge" value="0.00" /><span>  CM.</span>
-                </div>
-            </div><!-- End group -->
-            
-            
-            <div class="profile-info-row"><!-- group -->
-                <div class="profile-info-name">
                 	<label><?php echo label("visible"); ?></label>
                 </div>
                 <div class="profile-info-value">

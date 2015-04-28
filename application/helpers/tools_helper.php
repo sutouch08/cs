@@ -182,9 +182,11 @@ function getCategoryById($id_category)
 	return $name;
 }
 
-function category_product_check($id_category, $category_product)
+function category_product_check($id_category, $category_product="")
 {
-		$checked = "";
+	$checked = "";
+	if($category_product !="")
+	{
 		foreach($category_product as $rs)
 		{
 			if($id_category == $rs->id_category)
@@ -192,6 +194,7 @@ function category_product_check($id_category, $category_product)
 				$checked = "checked='checked'";
 			}
 		}
+	}
 		return $checked;
 }
 

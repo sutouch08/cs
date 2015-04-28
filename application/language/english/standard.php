@@ -47,5 +47,12 @@ $lang['default'] = "Default";
 $lang['allow'] = "Allowed";
 $lang['not_allow'] = "Not allow";
 
+$lang['profile'] = "Profile";
+$lang['basic_info'] = "Basic info";
+$lang['setting'] = "Settings";
+$lang['password'] = "Password";
+$lang['language'] = "Language";
+$lang['welcome'] = "Welcome";
+$lang['logout'] = "Logout";
 $lang['empty_content'] = "------------- No Data --------------";
 ?>

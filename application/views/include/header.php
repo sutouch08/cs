@@ -1,6 +1,6 @@
 <?php if($this->session->userdata("id_user") == null){ redirect(base_url()."authentication"); } ?>
 <?php  
-			$language = $this->session->userdata("lang") == null?"english": $this->session->userdata("lang");
+			$language = get_lang($this->session->userdata("id_user"));
 			$this->lang->load($language,$language);	
 ?>
 <!DOCTYPE html>
@@ -326,9 +326,14 @@
 						<!-- #section:basics/navbar.user_menu -->
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo base_url(); ?>assets/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" 
+                                	src="<?php if(file_exists("images/employee/".$this->session->userdata("id_user").".jpg")){ 
+															echo base_url()."images/employee/".$this->session->userdata("id_user").".jpg"; 
+														}else{
+															echo base_url()."images/employee/avatar.png";
+														} ?>" alt="<?php echo getEmployeeNameByIdUser($this->session->userdata("id_user")); ?> " />
 								<span class="user-info">
-									<small>Welcome,</small>
+									<small><?php echo label("welcome"); ?></small>
 									<?php echo getEmployeeNameByIdUser($this->session->userdata("id_user")); ?>
 								</span>
 
@@ -339,14 +344,14 @@
 								<li>
 									<a href="#">
 										<i class="ace-icon fa fa-cog"></i>
-										Settings
+										<?php echo label("setting"); ?>
 									</a>
 								</li>
 
 								<li>
-									<a href="profile.html">
+									<a href="<?php echo base_url()."admin/profile"; ?>">
 										<i class="ace-icon fa fa-user"></i>
-										Profile
+										<?php echo label("profile"); ?>
 									</a>
 								</li>
 
@@ -355,7 +360,7 @@
 								<li>
 									<a href="<?php echo base_url(); ?>authentication/logout">
 										<i class="ace-icon fa fa-power-off"></i>
-										Logout
+										<?php echo label("logout"); ?>
 									</a>
 								</li>
 							</ul>
