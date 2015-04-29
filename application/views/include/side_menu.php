@@ -3,7 +3,7 @@
 <!--  ***********************************   Side menu Start ************************************** -->
 	<ul class="nav nav-list">
     
-		<li class=""><a href="#"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text"> Dashboard </span></a></li><!-- First Level Menu -->  
+		<li class=""><a href="<?php echo valid_menu(1,"admin/main"); ?>"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text"> Dashboard </span></a></li><!-- First Level Menu -->  
         <!--/*******************************************************************  เมนูสินค้า  ********************************************************************/-->
         <!-- <li class="active open">  -->
 		<li class=""><a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-tags"></i><span class="menu-text"><?php echo label("products"); ?></span><b class="arrow fa fa-angle-down"></b></a><!-- First Level -->

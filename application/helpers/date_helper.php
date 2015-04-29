@@ -18,4 +18,11 @@ function NOW()
 	return date("Y-m-d H:i:s");	
 }
 
+function dateDiff($from, $to)
+{
+	$fdate = strtotime($from);
+	$tdate = strtotime($to);	
+	$diff = ($tdate - $fdate)/(3600*24);
+	return round($diff);
+}
 ?>

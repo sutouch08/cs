@@ -53,4 +53,17 @@ function multi_lang()
 	}
 }
 
+
+function utf8($in) {
+$out = "";
+for ($i = 0; $i < strlen($in); $i++)
+{
+if (ord($in[$i]) <= 126)
+$out .= $in[$i];
+else
+$out .= "&#" . (ord($in[$i]) - 161 + 3585) . ";";
+}
+return $out;
+}
+
 ?>
