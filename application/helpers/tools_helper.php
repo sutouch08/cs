@@ -230,6 +230,75 @@ function image_path($id_image, $use_size=1)
 	return $image_path."/".$prefix.$id_image.".jpg";
 }
 
+function get_cover_image($id_product, $use_size=1)
+{
+	switch($use_size)
+	{
+		case 1 :
+		$prefix = "mini";
+		break;
+		case 2 :
+		$prefix = "medium";
+		break;
+		case 3 :
+		$prefix = "large";
+		break;
+		case 4 :
+		$prefix = "default";
+		break;
+		default :
+		$prefix = "default";
+		break;
+	}
+	$image = base_url()."images/product/no_image_".$prefix.".jpg"; 
+	$c =& get_instance();
+	$rs = $c->db->select("id_image")->where("id_product", $id_product)->where("cover", 1)->get("tbl_image");
+	if($rs->num_rows() == 1)
+	{
+		$image = image_path($rs->row()->id_image, $use_size);	
+	}
+	return $image;
+}
+
+
+function product_attribute_image($id_product_attribute, $use_size=1)
+{
+	switch($use_size)
+	{
+		case 1 :
+		$prefix = "mini";
+		break;
+		case 2 :
+		$prefix = "medium";
+		break;
+		case 3 :
+		$prefix = "large";
+		break;
+		case 4 :
+		$prefix = "default";
+		break;
+		default :
+		$prefix = "default";
+		break;
+	}
+	$image = base_url()."images/product/no_image_".$prefix.".jpg";	
+	$c =& get_instance();
+	$rs = $c->db->select("id_image")->where("id_product_attribute", $id_product_attribute)->get("tbl_product_attribute_image");
+	if($rs->num_rows() >0)
+	{
+		$img = $rs->row()->id_mage;
+	}else{
+		$img = false;
+	}
+	if($img != false)
+	{
+		$image = image_path($img, $use_size);
+	}else{
+		$id_product = $c->db->select("id_product")->where("id_product_attribute", $id_product_attribute)->get("tbl_product_attribute")->row()->id_product;
+		$image = get_cover_image($id_product, $use_size);
+	}
+	return $image;
+}
 function delete_image($id_image)
 {
 	$img_size = array("mini_", "medium_", "large_", "default_");

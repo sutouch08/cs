@@ -271,23 +271,7 @@
                 </div>
             </div><!-- End group -->
            
-            <div class="col-lg-6"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("barcode_pack")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"barcode_pack","id"=>"barcode_pack", "type"=>"text", "autocomplete"=>"off", "class"=>"input-xlarge"), ""); ?>
-                </div>
-            </div><!-- End group -->
             
-             <div class="col-lg-12" style="padding-left:0px;"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("qty")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"qty","id"=>"qty", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium"), ""); ?>
-                </div>
-            </div><!-- End group -->
              <div class="col-lg-12" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("image")); ?>

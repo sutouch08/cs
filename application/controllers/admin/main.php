@@ -12,10 +12,10 @@ class Main extends CI_Controller
 		$this->home = base_url()."admin/main";
 	}
 	public function index()
-	{
-		//$this->load->library("csvreader");
-		//$file_path = "assets/stock.csv";
-		//$data['data'] = $this->csvreader->parse_file($file_path);
+	{		
+		$this->load->library("csvreader");
+		$file_path = "assets/product.csv";
+		$data['data'] = $this->csvreader->parse_file($file_path);
 		$data['id_menu']	= $this->id_menu;
 		$data['view']			= "admin/main_view";
 		$data['page_title'] 	= "Welcome";
@@ -32,7 +32,7 @@ class Main extends CI_Controller
 		}
 	}
 	
-	public function export()
+	public function export_excel()
 	{
 		$language = get_lang($this->session->userdata("id_user"));
 		$this->lang->load($language,$language);	
@@ -49,11 +49,19 @@ class Main extends CI_Controller
 				array_push($body, $arr);
 			}		
 		}
-		$this->load->library('excel');
-		$this->excel->addArray($fields);
-		$this->excel->addArray($body);
-		$this->excel->export(label("products"));
+		$this->load->library('export');
+		$this->export->addArray($fields);
+		$this->export->addArray($body);
+		$this->export->excel(label("products"));
 		
+	}
+	
+	public function export_csv($filename="product")
+	{
+		$this->load->model("admin/product_model");
+		$rs = $this->product_model->getdata();
+		$this->load->library('export');
+		$this->export->csv("product.csv",$rs, true, "windows-874");
 	}
 }// End class
 

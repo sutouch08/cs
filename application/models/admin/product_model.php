@@ -21,7 +21,6 @@ class Product_model extends CI_Model
 		}		
 	}
 	
-	
 	public function update($id, $data)
 	{
 		$rs = $this->db->where("id_product", $id)->update("tbl_product", $data);	
@@ -167,6 +166,21 @@ class Product_model extends CI_Model
 			return false;
 		}
 	}
+	
+	/**************************  Product Attribute **********************/
+	
+	public function insert_product_attribute($data)
+	{
+		$rs = $this->db->insert("tbl_product_attribute", $data);
+		if($rs)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	
 }// End class
 
 ?>

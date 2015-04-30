@@ -147,6 +147,38 @@ public function edit_product($id, $tab="")
 		}		
 	}
 
+public function add_attribute()
+{
+	if( $this->input->post("id_product") )
+	{
+		$data = array(
+			"id_product" => $this->input->post("id_product"),
+			"reference" => $this->input->post("reference"),
+			"barcode" => $this->input->post("barcode"),
+			"id_color" => $this->input->post("color"),
+			"id_size" => $this->input->post("size"),
+			"id_attribute" => $this->input->post("attribute"),
+			"cost" => $this->input->post("cost"),
+			"price" => $this->input->post("price"),
+			"date_add" => NOW()
+		);
+		if( !$this->product_model->insert_product_attribute($data) )
+		{
+			setError(label("error101"));
+		}	
+		$this->edit_product($this->input->post("id_product"), "tab2");
+	}else{
+		setError(label("eror101") );
+		$this->index();
+	}		
+	
+}
+
+
+
+
+
+
 public function display_category($parent, $checked="", $me=""){
 	$this->load->model("admin/category_model");
 		$rs = $this->category_model->get_category_by_parent($parent);

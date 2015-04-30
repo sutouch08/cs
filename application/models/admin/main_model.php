@@ -25,6 +25,19 @@ class Main_model extends CI_Model
 		return true;
 	}
 	
+	public function export_csv($query)
+	{
+		// Load DB utility class
+		$this->load->dbutil();
+		// Set delimiter and new line
+		$delimiter = ",";
+		$newline = "\r\n";
+
+		// put result into a variable
+		$data = $this->dbutil->csv_from_result($query, $delimiter, $newline); 
+		$this->load->helper('download');
+		force_download("product.csv", $data); 	
+	}
 	
 }//end class
 
