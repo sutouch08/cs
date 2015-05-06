@@ -120,6 +120,15 @@
                 </div>
             </div><!-- End group -->
             
+             <div class="profile-info-row"><!-- group -->
+                <div class="profile-info-name">
+                	<label><?php echo label("weight"); ?></label>
+                </div>
+                <div class="profile-info-value">
+					 <input type="text" name="weight" id="weight" class="input-xlarge" value="<?php echo $pd->product_weight; ?>" />&nbsp;<?php echo label("kgs"); ?><span style="color:red">  *</span>
+                </div>
+            </div><!-- End group -->
+            
             
             
             <div class="profile-info-row"><!-- group -->
@@ -199,6 +208,7 @@
 <?php 
 			$cost = $pd->product_cost; 
 			$price = $pd->product_price;
+			$weight = $pd->product_weight;
 ?>		
 <?php endforeach; ?>	
 <form method="post" action="<?php echo $this->home; ?>/add_attribute">
@@ -251,7 +261,17 @@
                 </div>
             </div><!-- End group -->
             
-            <div class="col-lg-6"><!-- group -->
+             <div class="col-lg-6"><!-- group -->
+                <div class="profile-info-name">
+                	<?php echo form_label( label("weight")); ?>
+                </div>
+                <div class="profile-info-value">
+                    <?php echo form_input(array("name"=>"weight","id"=>"weight", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $weight); ?>
+                    <?php echo label("kgs"); ?>
+                </div>
+            </div><!-- End group -->
+                        
+            <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("attribute")); ?>
                 </div>
@@ -262,7 +282,7 @@
                 </div>
             </div><!-- End group -->
            
-            <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
+            <div class="col-lg-6"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("barcode")); ?>
                 </div>
@@ -303,11 +323,10 @@
    </form>
    <?php else : ?>	
    <?php foreach($attribute_data as $att) : ?>
-<form method="post" action="<?php echo $this->home; ?>/edit_attribute/<?php echo $att->id_product_attribute; ?>">
-<input type="hidden" name="id_product" value="<?php echo $id_product; ?>" />
+<form method="post" action="<?php echo $this->home; ?>/edit_attribute/<?php echo $att->id_product; ?>/<?php echo $att->id_product_attribute; ?>">
+<input type="hidden" name="id_product" value="<?php echo $att->id_product; ?>" />
 <input type="hidden" name="edit" value="1" />
-	<h4 class="blue" align="left" style="margin-top:-5px">&nbsp;</h4> 
-    <hr class="blue" style="margin-top:-1px" />  
+
 	<div class="profile-user-info profile-user-info-striped ">
             <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
@@ -356,6 +375,16 @@
             
             <div class="col-lg-6"><!-- group -->
                 <div class="profile-info-name">
+                	<?php echo form_label( label("weight")); ?>
+                </div>
+                <div class="profile-info-value">
+                    <?php echo form_input(array("name"=>"weight","id"=>"weight", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium", "required"=>"required"), $att->weight); ?>
+                    <?php echo label("kgs"); ?>
+                </div>
+            </div><!-- End group -->
+            
+            <div class="col-lg-6"  style="padding-left:0px;"><!-- group -->
+                <div class="profile-info-name">
                 	<?php echo form_label( label("attribute")); ?>
                 </div>
                 <div class="profile-info-value">
@@ -365,7 +394,7 @@
                 </div>
             </div><!-- End group -->
             
-            <div class="col-lg-6" style="padding-left:0px;"><!-- group -->
+            <div class="col-lg-6"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("barcode")); ?>
                 </div>
@@ -373,24 +402,7 @@
                     <?php echo form_input(array("name"=>"barcode","id"=>"barcode", "type"=>"text", "autocomplete"=>"off", "class"=>"input-xlarge"), $att->barcode); ?>
                 </div>
             </div><!-- End group -->
-           
-            <div class="col-lg-6" ><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("barcode_pack")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"barcode_pack","id"=>"barcode_pack", "type"=>"text", "autocomplete"=>"off", "class"=>"input-xlarge"), ""); ?>
-                </div>
-            </div><!-- End group -->
-            
-             <div class="col-lg-12" style="padding-left:0px;"><!-- group -->
-                <div class="profile-info-name">
-                	<?php echo form_label( label("qty")); ?>
-                </div>
-                <div class="profile-info-value">
-                    <?php echo form_input(array("name"=>"qty","id"=>"qty", "type"=>"text", "autocomplete"=>"off", "class"=>"input-medium"), ""); ?>
-                </div>
-            </div><!-- End group -->
+
              <div class="col-lg-12" style="padding-left:0px;"><!-- group -->
                 <div class="profile-info-name">
                 	<?php echo form_label( label("image")); ?>
@@ -399,7 +411,7 @@
                 <?php if($image_list != false) : ?>
                     <?php foreach($image_list as $im): ?>
                      <label for="<?php echo $im->id_image;?>">
-						 <input type="radio" name="id_image" value="<?php echo $im->id_image;?>" id="<?php echo $im->id_image;?>" class="ace">
+						 <input type="radio" name="id_image" value="<?php echo $im->id_image;?>" id="<?php echo $im->id_image;?>" class="ace" <?php echo isChecked($id_image, $im->id_image); ?> >
                          <span class="lbl">
                     	<img src="<?php echo image_path($im->id_image, 1); ?>"  />   
                         </span>
@@ -429,15 +441,14 @@
     	<tr style='font-size:12px;'>
         	<th style='width:5%;'><?php echo label("image"); ?></th>
             <th style='width:15%;'><?php echo label("reference"); ?></th>
-            <th style="width:10%; "><?php echo label("barcode"); ?></th>
-            <th style='width:10%;'><?php echo label("barcode_pack"); ?></th>
-            <th style='width:5%; text-align:center'><?php echo label("qty_pack"); ?></th>
+            <th style="width:15%; "><?php echo label("barcode"); ?></th>
             <th style='width:10%; text-align:center'><?php echo label("color"); ?></th>
             <th style="width:10%; text-align:center"><?php echo label("size"); ?></th>
             <th style='width:10%; text-align:center;'><?php echo label("attribute"); ?></th>
-            <th style='width:5%; text-align:right'><?php echo label("cost"); ?></th>
-            <th style="width:5%; text-align:right"><?php echo label("price"); ?></th>
-            <th style='width:20%; text-align:center;'><?php echo label("action"); ?></th>
+            <th style='width:8%; text-align:right'><?php echo label("cost"); ?></th>
+            <th style="width:8%; text-align:right"><?php echo label("price"); ?></th>
+            <th style="width:8%; text-align:right"><?php echo label("weight"); ?></th>
+            <th style='text-align:center;'><?php echo label("action"); ?></th>
            </tr>
       </thead>
       <tbody>
@@ -449,18 +460,17 @@
                     <td style="vertical-align:middle;"><img src="<?php echo product_attribute_image($at->id_product_attribute, 1); ?>"  /></td>
                     <td style="vertical-align:middle;"><?php echo $at->reference; ?></td>
                     <td style="vertical-align:middle;"><?php echo $at->barcode; ?></td>
-                    <td style="vertical-align:middle;"><?php //echo $at->barcode_pack; ?></td>
-                    <td align="center" style="vertical-align:middle;"><?php //echo $at->barcode; ?></td>
-                    <td align="center" style="vertical-align:middle;"><?php echo $at->id_color; ?></td>
-                    <td align="center" style="vertical-align:middle;"><?php echo $at->id_size; ?></td>
-                    <td align="center" style="vertical-align:middle;"><?php echo $at->id_attribute; ?></td>
+                    <td align="center" style="vertical-align:middle;"><?php echo get_color($at->id_color); ?></td>
+                    <td align="center" style="vertical-align:middle;"><?php echo get_size($at->id_size); ?></td>
+                    <td align="center" style="vertical-align:middle;"><?php echo get_attribute($at->id_attribute); ?></td>
                     <td align="right" style="vertical-align:middle;"><?php echo $at->cost; ?></td>
                     <td align="right" style="vertical-align:middle;"><?php echo $at->price; ?></td>
+                    <td align="right" style="vertical-align:middle;"><?php echo $at->weight; ?></td>
                     <td align="center" style="vertical-align:middle;">
-                    	<a href="<?php echo base_url(); ?>invent/product/edit/<?php echo $at->id_product_attribute; ?>" >
+                    	<a href="<?php echo $this->home; ?>/edit_attribute/<?php echo $at->id_product; ?>/<?php echo $at->id_product_attribute; ?>" >
                         	<button type="button" class="btn btn-warning" <?php echo $access['edit']; ?> ><i class="fa fa-pencil"></i></button></a>
-                        <a href="<?php echo base_url(); ?>invent/product/delete/<?php echo $at->id_product; ?>">
-                            <button type="button" class="btn btn-danger" onclick="return confirm('<?php echo label("delete_confirm"); ?>');"  <?php echo $access['delete']; ?>><i class="fa fa-trash"></i></button></a>
+                        
+                            <button type="button" class="btn btn-danger" onclick="confirm_delete('คุณแน่ใจว่าต้องการลบรายการนี้','การกระทำนี้ไม่สามารถกู้คืนได้','<?php echo $this->home; ?>/delete_attribute/<?php echo $at->id_product; ?>/<?php echo $at->id_product_attribute; ?>','ใช่ ต้องการลบ','ยกเลิก');"  <?php echo $access['delete']; ?>><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
         <?php endforeach; ?>
@@ -489,19 +499,25 @@
 		<table class='table table-striped' id="ac_chart" style="width:100%" >
     	<thead>
     	<tr style='font-size:12px;'>
-			<th style='width:60%;'><?php echo label("1"); ?></th>
-            <th style='width:10%; text-align: right;'><?php echo label("2"); ?></th>
-            <th style="width:10%; text-align: right;"><?php echo label("3"); ?></th>
-            <th style='width:10%; text-align:  center;'><?php echo label("4"); ?></th>
+			<th style='width:60%;'><?php echo label("image"); ?></th>
+            <th style='width:10%; text-align: right;'><?php echo label("position"); ?></th>
+            <th style="width:10%; text-align: center"><?php echo label("cover"); ?></th>
+            <th style='width:10%; text-align:  center;'><?php echo label("action"); ?></th>
            </tr>
 		</thead>
 		<tbody> 
         <?php if($image_list !=false) : ?>
 		<?php foreach($image_list as $im): ?>
         		<tr style="font-size:12px;">
-                    <td style="vertical-align:middle;"><img src="<?php echo image_path($im->id_image,2); ?>"  /> </td>
+                    <td style="vertical-align:middle;"><img src="<?php echo image_path($im->id_image,1); ?>"  /> </td>
                     <td style="vertical-align:middle;" align="right"><?php echo $im->position; ?></td>
-                    <td align="right" style="vertical-align:middle;"><?php echo isActived(1,$im->cover); ?></td>
+                    <td align="center" style="vertical-align:middle;">
+                    <?php if($im->cover != "1") : ?>
+                    	<a href="<?php echo $this->home."/setCover/".$id_product."/".$im->id_image; ?>" ><?php echo label("set_as_cover"); ?></a>
+                    <?php else : ?>
+                    	<span id="cover" ><i class="fa fa-check fa-2x green"></i></span>
+                    <?php endif; ?>
+                    </td>
                     <td align="center" style="vertical-align:middle;"> 
                     <a href="<?php echo $this->home; ?>/delete_image/<?php echo $im->id_image; ?>/<?php echo $id_product; ?>">
                             <button type="button" class="btn btn-danger" onclick="return confirm('<?php echo label("delete_confirm"); ?>');"  <?php echo $access['delete']; ?>><i class="fa fa-trash"></i></button>
@@ -554,5 +570,6 @@ $('#id-input-file-3').ace_file_input({
 $('#id-input-file-3').click(function(){
 	$("#upload").attr("style","");
 });
+
 </script>
 <?php endif; ?>

@@ -5,7 +5,7 @@ class Product_model extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+	/*************************  Product  ****************************/
 	public function get_data($id = "")
 	{
 		if($id != "")
@@ -30,6 +30,32 @@ class Product_model extends CI_Model
 		}else{
 			return false;
 		}
+	}
+
+	/********************************* End Product  *********************************/
+	
+	/********************************* Product Attribute ***********************************/	
+	public function update_attribute($id_product_attribute, $data)
+	{
+		$rs = $this->db->where("id_product_attribute", $id_product_attribute)->update("tbl_product_attribute", $data);
+		if($rs)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function get_attribute_data($id) //*** get data of product_attribute
+	{
+		$rs = $this->db->where("id_product_attribute", $id)->get("tbl_product_attribute",1);
+		if($rs->num_rows() == 1 )
+		{
+			return $rs->result();
+		}else{
+			return false;
+		}
+		
 	}
 	
 	
@@ -60,13 +86,7 @@ class Product_model extends CI_Model
 		$rs = $this->db->insert("tbl_product", $data);
 		if($rs)
 		{
-			$ro = $this->db->select("id_product")->where("product_code", $data['product_code'])->get("tbl_product");
-			if($ro->num_rows() == 1)
-			{
-				return $ro->row()->id_product;
-			}else{
-				return false;
-			}
+			return $this->db->insert_id();
 		}else{
 			return false;
 		}	
@@ -157,11 +177,71 @@ class Product_model extends CI_Model
 		$this->db->insert("tbl_image", $data);
 	}
 	
+	public function insert_attribute_image($data)
+	{
+		$rs = $this->db->insert("tbl_product_attribute_image", $data);	
+		if($rs)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function update_attribute_image($id_product_attribute, $id_image)
+	{
+		$rs = $this->db->where("id_product_attribute", $id_product_attribute)->update("tbl_product_attribute_image", array("id_image"=>$id_image));
+		if($rs)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function already_in_attribute_image($id_product_attribute)
+	{
+		$rs = $this->db->get_where("tbl_product_attribute_image", array("id_product_attribute"=>$id_product_attribute));
+		if($rs->num_rows() >0)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public function delete_img($id){
 		$rs = $this->db->delete("tbl_image", array("id_image" =>$id));
 		if($rs)
 		{
 			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function get_cover_image_id($id_product)
+	{
+		$rs = $this->db->where("id_product", $id_product)->where("cover", 1)->get("tbl_image");
+		if($rs->num_rows() ==1)
+		{
+			return $rs->row()->id_image;
+		}else{
+			return false;
+		}
+	}
+	
+	public function set_cover($id_product, $old_cover_id, $new_cover_id)
+	{
+		$ro = $this->db->where("id_product", $id_product)->where("id_image", $old_cover_id)->update("tbl_image", array("cover"=>0));
+		if($ro){
+			$rs = $this->db->where("id_product", $id_product)->where("id_image", $new_cover_id)->update("tbl_image", array("cover"=>1));
+			if($rs)
+			{
+				return true;
+			}else{
+				return false;
+			}
 		}else{
 			return false;
 		}
@@ -174,7 +254,7 @@ class Product_model extends CI_Model
 		$rs = $this->db->insert("tbl_product_attribute", $data);
 		if($rs)
 		{
-			return true;
+			return $this->db->insert_id();
 		}else{
 			return false;
 		}

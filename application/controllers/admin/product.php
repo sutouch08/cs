@@ -48,6 +48,7 @@ class Product extends CI_Controller
 			$data['default_category_id'] = $this->input->post("default_category");
 			$data['product_cost'] = $this->input->post("cost");
 			$data['product_price'] = $this->input->post("price");
+			$data['product_weight'] = $this->input->post("weight");
 			$data['description'] = $desc['thai'];
 			$data['description_en'] = $desc['english'];
 			if( $desc['english'] == "" ){ $data['description_en'] = $desc['thai']; }
@@ -87,7 +88,7 @@ class Product extends CI_Controller
 	}
 
 
-public function edit_product($id, $tab="")
+public function edit_product($id, $tab="", $id_product_attribute="")
 	{
 		if( $this->input->post("edit") )
 		{
@@ -99,6 +100,7 @@ public function edit_product($id, $tab="")
 			$data['default_category_id'] = $this->input->post("default_category");
 			$data['product_cost'] = $this->input->post("cost");
 			$data['product_price'] = $this->input->post("price");
+			$data['product_weight'] = $this->input->post("weight");
 			$desc = $this->input->post("description");
 			$data['description'] = $desc['thai'];
 			if($desc['english'] == ""){ $desc['english'] = $desc['thai']; }
@@ -133,6 +135,12 @@ public function edit_product($id, $tab="")
 			$rp = $this->product_model->get_data($id);
 			$ra = $this->product_model->get_attribute_data_by_product($id);
 			$im = $this->product_model->get_image_product($id);
+			if($id_product_attribute !=""){ 
+				$rpa = $this->product_model->get_attribute_data($id_product_attribute);
+				$id_img = get_attribute_image_id($id_product_attribute);
+				$data['attribute_data'] = $rpa;
+				$data['id_image'] = $id_img;
+			}
 			$data['id_product'] = $id;
 			$data['cate'] = $rs;
 			$data['cate_data'] = $rc;
@@ -151,6 +159,10 @@ public function add_attribute()
 {
 	if( $this->input->post("id_product") )
 	{
+		if( !$this->verify->validate($this->id_menu, "add") )
+		{
+			action_deny();
+		}else{
 		$data = array(
 			"id_product" => $this->input->post("id_product"),
 			"reference" => $this->input->post("reference"),
@@ -160,22 +172,76 @@ public function add_attribute()
 			"id_attribute" => $this->input->post("attribute"),
 			"cost" => $this->input->post("cost"),
 			"price" => $this->input->post("price"),
+			"weight"=> $this->input->post("weight"),
 			"date_add" => NOW()
 		);
-		if( !$this->product_model->insert_product_attribute($data) )
+		
+		$rs = $this->product_model->insert_product_attribute($data);
+		if( $rs != false )
 		{
+			if($this->input->post("id_image"))
+			{
+				$img_data = array(
+					"id_product_attribute"=>$rs,
+					"id_image"=>$this->input->post("id_image")
+					);
+				$this->product_model->insert_attribute_image($img_data);
+			}
+		}else{
 			setError(label("error101"));
 		}	
 		$this->edit_product($this->input->post("id_product"), "tab2");
+		}
 	}else{
 		setError(label("eror101") );
 		$this->index();
-	}		
-	
+	}			
 }
 
 
-
+public function edit_attribute($id_product, $id_product_attribute)
+{
+	if( $this->input->post("edit") )
+	{
+		if( $this->verify->validate($this->id_menu, "edit") )
+		{
+			$data = array(
+			"reference" => $this->input->post("reference"),
+			"barcode" => $this->input->post("barcode"),
+			"id_color" => $this->input->post("color"),
+			"id_size" => $this->input->post("size"),
+			"id_attribute" => $this->input->post("attribute"),
+			"cost" => $this->input->post("cost"),
+			"price" => $this->input->post("price"),
+			"weight"=> $this->input->post("weight"),
+			);
+			$rs = $this->product_model->update_attribute($id_product_attribute, $data);
+			if($this->input->post("id_image"))
+			{
+				$img_data = array(
+					"id_product_attribute"=>$id_product_attribute,
+					"id_image"=>$this->input->post("id_image")
+					);
+					if( $this->product_model->already_in_attribute_image($id_product_attribute) )
+					{
+						$this->product_model->update_attribute_image($id_product_attribute, $this->input->post("id_image"));
+					}else{
+						$this->product_model->insert_attribute_image($img_data);
+					}
+			}
+			if(!$rs)
+			{
+				setError(label("error102"));
+			}
+			redirect($this->home."/edit_product/".$id_product."/tab2");
+		}else{
+			setError(label("action_deny")); 
+			redirect($this->home."/edit_product/".$id_product."/tab2");
+		}
+	}else{
+		$this->edit_product($id_product, "tab2", $id_product_attribute);
+	}
+}
 
 
 
@@ -317,6 +383,37 @@ public function display_category($parent, $checked="", $me=""){
 		$this->edit_product($id_product, "tab3");
 		
 	}/// End of do_upload
+	
+	
+	public function setCover($id_product, $id_image)
+	{
+		if($id_product !="" && $id_image !="")
+		{
+			if( $this->verify->validate($this->id_menu, "edit") )
+			{
+				$id_cover = $this->product_model->get_cover_image_id($id_product);
+				if($id_cover != false)
+				{	
+					$rs = $this->product_model->set_cover($id_product, $id_cover, $id_image);
+					if($rs){
+						redirect($this->home."/edit_product/".$id_product."/tab3");
+					}else{
+						setError(label("error102"));
+						redirect($this->home."/edit_product/".$id_product."/tab3");
+					}
+				}else{
+					setError(label("error102"));
+					redirect($this->home."/edit_product/".$id_product."/tab3");
+				}
+			}else{
+				setError(label("action_deny"));
+				redirect($this->home."/edit_product/".$id_product."/tab3");
+			}
+		}else{
+			setError(label("error201"));
+			redirect($this->home);
+		}
+	}
 	
 	public function delete_image($id,$id_product){
 		if($this->product_model->delete_img($id))

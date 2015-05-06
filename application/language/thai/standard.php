@@ -15,6 +15,10 @@ $lang['date_add'] = "วันที่เพิ่ม";
 $lang['date'] = "วันที่";
 $lang['action'] = "การกระทำ";
 $lang['status'] = "สถานะ";
+$lang['position'] = "ตำแหน่ง";
+$lang['cover'] = "หน้าปก";
+$lang['set_as_cover'] = "ตั้งเป็นหน้าปก";
+$lang['upload_image'] = "อัพโหลดรูปภาพ";
 
 $lang['reference'] = "รหัสอ้างอิง";
 $lang['color'] = "สี";
@@ -32,6 +36,7 @@ $lang['barcode_item'] = "บาร์โค้ดสินค้า";
 $lang['barcode_pack'] = "บาร์โค้ดแพ็ค";
 $lang['qty'] = "จำนวน";
 $lang['qty_pack'] = "จำนวนในแพ็ค";
+$lang['kgs'] = "กิโลกรัม";
 
 
 $lang['category'] = "หมวดหมู่";

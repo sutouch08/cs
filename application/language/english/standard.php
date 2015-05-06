@@ -15,7 +15,12 @@ $lang['date_add'] = "Date added";
 $lang['date'] = "Date";
 $lang['action'] = "Actions";
 $lang['status'] = "Status";
+$lang['position'] = "Position";
+$lang['cover'] = "Cover";
+$lang['set_as_cover'] = "Set as cover";
+$lang['upload_image'] = "Upload images";
 
+// product attribute
 $lang['reference'] = "Reference";
 $lang['color'] = "Color";
 $lang['size'] = "Size";
@@ -32,6 +37,7 @@ $lang['barcode_item'] = "Barcode item";
 $lang['barcode_pack'] = "Barcode package";
 $lang['qty'] = "Quantity";
 $lang['qty_pack'] = "Qty in pack";
+$lang['kgs'] = "KGS.";
 
 
 $lang['category'] = "Category";
@@ -46,7 +52,7 @@ $lang['allow_under_zero'] = "Allow under zero";
 $lang['default'] = "Default";
 $lang['allow'] = "Allowed";
 $lang['not_allow'] = "Not allow";
-
+// personal profile
 $lang['profile'] = "Profile";
 $lang['basic_info'] = "Basic info";
 $lang['setting'] = "Settings";

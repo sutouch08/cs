@@ -110,6 +110,14 @@
             </div><!-- End group -->
             <div class="profile-info-row"><!-- group -->
                 <div class="profile-info-name">
+                	<label><?php echo label("weight"); ?></label>
+                </div>
+                <div class="profile-info-value">
+					 <input type="text" name="weight" id="weight" class="input-xlarge" value="0.00" />&nbsp;<?php echo label("kgs"); ?><span style="color:red">  *</span>
+                </div>
+            </div><!-- End group -->
+            <div class="profile-info-row"><!-- group -->
+                <div class="profile-info-name">
                 	<label><?php echo label("visible"); ?></label>
                 </div>
                 <div class="profile-info-value">

@@ -286,7 +286,7 @@ function product_attribute_image($id_product_attribute, $use_size=1)
 	$rs = $c->db->select("id_image")->where("id_product_attribute", $id_product_attribute)->get("tbl_product_attribute_image");
 	if($rs->num_rows() >0)
 	{
-		$img = $rs->row()->id_mage;
+		$img = $rs->row()->id_image;
 	}else{
 		$img = false;
 	}
@@ -299,6 +299,7 @@ function product_attribute_image($id_product_attribute, $use_size=1)
 	}
 	return $image;
 }
+
 function delete_image($id_image)
 {
 	$img_size = array("mini_", "medium_", "large_", "default_");
@@ -316,4 +317,54 @@ function delete_image($id_image)
 		unlink($image_path."/".$prefix.$id_image.".jpg");
 	}
 }
+
+function get_color($id)
+{
+	$color = "";
+	$c =& get_instance();
+	$rs = $c->db->where("id_color", $id)->get("tbl_color",1);
+	if($rs->num_rows() == 1)
+	{
+		$color = $rs->row()->color_name;
+	}
+	return $color;
+}
+
+function get_size($id)
+{
+	$size = "";
+	$c =& get_instance();
+	$rs = $c->db->where("id_size", $id)->get("tbl_size",1);
+	if($rs->num_rows() == 1)
+	{
+		$size = $rs->row()->size_name;
+	}
+	return $size;
+}
+
+function get_attribute($id)
+{
+	$attribute = "";
+	$c =& get_instance();
+	$rs = $c->db->where("id_attribute", $id)->get("tbl_attribute",1);
+	if($rs->num_rows() == 1)
+	{
+		$attribute = $rs->row()->attribute_name;
+	}
+	return $attribute;
+}
+
+function get_attribute_image_id($id_product_attribute)
+{
+	$id_image = "";
+	$c =& get_instance();
+	$rs = $c->db->select("id_image")->where("id_product_attribute", $id_product_attribute)->get("tbl_product_attribute_image",1);
+	if($rs->num_rows == 1)
+	{
+		$id_image = $rs->row()->id_image;
+	}
+	return $id_image;
+}
+
+
 ?>
