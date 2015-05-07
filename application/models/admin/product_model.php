@@ -92,6 +92,16 @@ class Product_model extends CI_Model
 		}	
 	}
 	
+	public function delete_attribute($id_product_attribute)
+	{
+		$rs = $this->db->delete("tbl_product_attribute", array("id_product_attribute"=>$id_product_attribute) );
+		if($rs)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	public function  insert_category_product($id, $category)
 	{
@@ -135,6 +145,23 @@ class Product_model extends CI_Model
 			$this->db->where("product_code", $code);
 		}
 		$rs = $this->db->get("tbl_product");
+		if($rs->num_rows() >0)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function valid_reference($code, $id)
+	{
+		if($id !="")
+		{
+			$this->db->where("reference", $code)->where("id_product_attribute !=", $id);
+		}else{
+			$this->db->where("reference", $code);
+		}
+		$rs = $this->db->get("tbl_product_attribute");
 		if($rs->num_rows() >0)
 		{
 			return true;
@@ -212,6 +239,16 @@ class Product_model extends CI_Model
 	
 	public function delete_img($id){
 		$rs = $this->db->delete("tbl_image", array("id_image" =>$id));
+		if($rs)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function remove_attribute_image($id_product_attribute){  /// delete data from tbl_product_attribute_image
+		$rs = $this->db->delete("tbl_product_attribute_image", array("id_product_attribute" =>$id_product_attribute));
 		if($rs)
 		{
 			return true;

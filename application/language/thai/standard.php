@@ -25,6 +25,7 @@ $lang['color'] = "สี";
 $lang['size'] = "ไซด์";
 $lang['attribute'] = "คุณลักษณะ";
 $lang['image'] = "รูปภาพ";
+$lang['images'] = "รูปภาพ";
 $lang['price'] = "ราคา";
 $lang['cost'] = "ต้นทุน";
 $lang['weight'] = "น้ำหนัก";
@@ -37,6 +38,7 @@ $lang['barcode_pack'] = "บาร์โค้ดแพ็ค";
 $lang['qty'] = "จำนวน";
 $lang['qty_pack'] = "จำนวนในแพ็ค";
 $lang['kgs'] = "กิโลกรัม";
+$lang['no_image_available'] = "------------- ยังไม่มีรูปภาพ --------------";
 
 
 $lang['category'] = "หมวดหมู่";
@@ -60,4 +62,5 @@ $lang['language'] = "ภาษา";
 $lang['welcome'] = "ยินดีต้อนรับ";
 $lang['logout'] = "ออกจากระบบ";
 $lang['empty_content'] = "------------- ไม่มีรายการ --------------";
+
 ?>

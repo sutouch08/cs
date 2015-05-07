@@ -19,10 +19,10 @@
         <!--/*******************************************************************  จบเมนูสินค้า  ********************************************************************/-->
         
         <!--/*******************************************************************  เมนูคลังสินค้า ********************************************************************/-->
-        <li calss=""><a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-home"></i><span class="menu-text">คลังสินค้า</span><b class="arrow fa fa-angle-down"></b></a><!-- First Level -->
+        <li calss=""><a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-home"></i><span class="menu-text"><?php echo label("warehouse"); ?></span><b class="arrow fa fa-angle-down"></b></a><!-- First Level -->
         	<ul class="submenu"><!-- Second Level -->
-            	<li class=""><a href="<?php echo "#"; ?>"><i class="menu-icon fa fa-caret-right"></i>เพิ่ม/แก้ไข คลังสินค้า</a><b class="arrow"></b></li> <!-- Second Level -->	
-                <li class=""><a href="<?php echo "#"; ?>"><i class="menu-icon fa fa-caret-right"></i>เพิ่ม/แก้ไข โซนสินค้า</a><b class="arrow"></b></li> <!-- Second Level -->	
+            	<li class=""><a href="<?php echo valid_menu(1,"admin/warehouse"); ?>"><i class="menu-icon fa fa-caret-right"></i><?php echo label("add_edit_warehouse"); ?></a><b class="arrow"></b></li> <!-- Second Level -->	
+                <li class=""><a href="<?php echo valid_menu(1,"admin/zone"); ?>"><i class="menu-icon fa fa-caret-right"></i><?php echo label("add_edit_zone"); ?></a><b class="arrow"></b></li> <!-- Second Level -->	
             </ul><!-- Second Level -->
          </li><!-- First Level -->
         <!--/*******************************************************************  จบเมนูคลังสินค้า  ********************************************************************/-->

@@ -4,7 +4,7 @@ class Product extends CI_Controller
 	public $id_menu = 1;
 	public $home;
 	public $layout = "include/template";
-	public $title = "Product";
+	public $title = "Products";
 	public $original_path;
 	public $product_path;
 	public $image_path;
@@ -121,7 +121,7 @@ public function edit_product($id, $tab="", $id_product_attribute="")
 					}
 					redirect($this->home);
 				}else{
-					setError("Cannot insert database");
+					setError(error("101"));
 					redirect($this->home);
 				}
 			}else{
@@ -188,12 +188,12 @@ public function add_attribute()
 				$this->product_model->insert_attribute_image($img_data);
 			}
 		}else{
-			setError(label("error101"));
+			setError(error("error101"));
 		}	
 		$this->edit_product($this->input->post("id_product"), "tab2");
 		}
 	}else{
-		setError(label("eror101") );
+		setError( error("eror101") );
 		$this->index();
 	}			
 }
@@ -231,11 +231,11 @@ public function edit_attribute($id_product, $id_product_attribute)
 			}
 			if(!$rs)
 			{
-				setError(label("error102"));
+				setError(error("error102"));
 			}
 			redirect($this->home."/edit_product/".$id_product."/tab2");
 		}else{
-			setError(label("action_deny")); 
+			setError(error("action_deny")); 
 			redirect($this->home."/edit_product/".$id_product."/tab2");
 		}
 	}else{
@@ -244,6 +244,17 @@ public function edit_attribute($id_product, $id_product_attribute)
 }
 
 
+public function delete_attribute($id_product, $id_product_attribute)
+{
+	$rs = $this->product_model->delete_attribute($id_product_attribute);
+	if($rs)
+	{
+		$im = $this->product_model->remove_attribute_image($id_product_attribute);
+	}else{
+		setError(error("error103"));
+	}
+	redirect($this->home."/edit_product/".$id_product."/tab2");
+}
 
 public function display_category($parent, $checked="", $me=""){
 	$this->load->model("admin/category_model");
@@ -277,6 +288,16 @@ public function display_category($parent, $checked="", $me=""){
 	public function valid_code($code, $id="")
 	{
 		if( $this->product_model->valid_code(urldecode($code), $id) )
+		{
+			echo "1"; // ซ้ำ
+		}else{
+			echo "0"; //ไม่ซ้ำ
+		}
+	}
+	
+	public function valid_attribute($code, $id="")
+	{
+		if( $this->product_model->valid_reference(urldecode($code), $id) )
 		{
 			echo "1"; // ซ้ำ
 		}else{
@@ -380,7 +401,7 @@ public function display_category($parent, $checked="", $me=""){
 				$this->product_model->insert_image($insert);
 			}
 		endforeach;     
-		$this->edit_product($id_product, "tab3");
+		redirect($this->home."/edit_product/".$id_product."/tab3");
 		
 	}/// End of do_upload
 	
@@ -398,15 +419,15 @@ public function display_category($parent, $checked="", $me=""){
 					if($rs){
 						redirect($this->home."/edit_product/".$id_product."/tab3");
 					}else{
-						setError(label("error102"));
+						setError(error("error102"));
 						redirect($this->home."/edit_product/".$id_product."/tab3");
 					}
 				}else{
-					setError(label("error102"));
+					$rs = $this->product_model->set_cover($id_product, $id_cover, $id_image);
 					redirect($this->home."/edit_product/".$id_product."/tab3");
 				}
 			}else{
-				setError(label("action_deny"));
+				setError(error("action_deny"));
 				redirect($this->home."/edit_product/".$id_product."/tab3");
 			}
 		}else{
@@ -424,6 +445,8 @@ public function display_category($parent, $checked="", $me=""){
 		} 
 		$this->edit_product($id_product,"tab3");
 	}
+	
+	
 }// End class
 
 

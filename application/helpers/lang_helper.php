@@ -23,6 +23,20 @@ function get_lang($id_user)
 	}
 }
 
+function error($label)
+{
+	$ci =& get_instance();
+	$language = get_lang($ci->session->userdata("id_user"));
+	$ci->lang->load($language,$language);
+	$rs = $ci->lang->line($label);
+	if($rs)
+	{
+		return $rs;
+	}else{
+		return $label;
+	}
+}
+
 function label($label)
 {
 	$ci =& get_instance();

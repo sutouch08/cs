@@ -7,7 +7,7 @@
 <?php if(isset($tab)){ if($tab == "tab2") : $tab2 = "active"; elseif($tab == "tab3") : $tab3 = "active"; else : $tab1 = "active"; endif; }else{ $tab1 = "active"; } ?>
 <div class='row'>
 	<div class='col-lg-6'>
-    	<h3 style='margin-bottom:0px;'><i class='fa fa-tag'></i>&nbsp; <?php echo $this->title; ?></h3>
+    	<h3 style='margin-bottom:0px;'><i class='fa fa-tag'></i>&nbsp; <?php echo label(strtolower($this->title)); ?></h3>
     </div>
     <div class="col-lg-6">
     	<p class='pull-right'>
@@ -211,7 +211,7 @@
 			$weight = $pd->product_weight;
 ?>		
 <?php endforeach; ?>	
-<form method="post" action="<?php echo $this->home; ?>/add_attribute">
+<form id="attribute_form" method="post" action="<?php echo $this->home; ?>/add_attribute">
 <input type="hidden" name="id_product" value="<?php echo $id_product; ?>"  />
 	<h4 class="blue" align="left" style="margin-top:-5px">เพิ่ม หรือ แก้ไข คุณลักษณะต่างๆของสินค้านี้ หรือ  <button type="button" class="btn btn-primary">สร้างรายการสินค้าอัตโนมัติ</button></h4> 
     <hr class="blue" style="margin-top:-1px" />  
@@ -307,7 +307,7 @@
                      </label> 
                     <?php endforeach;?>
                 <?php else : ?>
-                <span> ----- No image now  ---- </span>
+                <span> <?php echo label("no_image_available"); ?> </span>
                 <?php endif; ?>
                 </div>
             </div><!-- End group -->
@@ -316,15 +316,17 @@
                
                 </div>
                 <div class="profile-info-value" >
-					<button class='btn btn-success' <?php echo $access['add']; ?> type="submit"><i class='fa fa-plus'></i>&nbsp; <?php echo label("add"); ?></button>
+					<button  class='btn btn-success' <?php echo $access['add']; ?> type="button" onclick="valid_attribute()"><i class='fa fa-plus'></i>&nbsp; <?php echo label("add"); ?></button>
+                    <button id="attribute_submit" class='btn btn-success' type="button" style="display:none">Submit</button>
                 </div>
             </div><!-- End group -->
       </div>
    </form>
    <?php else : ?>	
    <?php foreach($attribute_data as $att) : ?>
-<form method="post" action="<?php echo $this->home; ?>/edit_attribute/<?php echo $att->id_product; ?>/<?php echo $att->id_product_attribute; ?>">
+<form id="attribute_form" method="post" action="<?php echo $this->home; ?>/edit_attribute/<?php echo $att->id_product; ?>/<?php echo $att->id_product_attribute; ?>">
 <input type="hidden" name="id_product" value="<?php echo $att->id_product; ?>" />
+<input type="hidden" name="id_product_attribute" id="id_product_attribute" value="<?php echo $att->id_product_attribute; ?>" />
 <input type="hidden" name="edit" value="1" />
 
 	<div class="profile-user-info profile-user-info-striped ">
@@ -418,7 +420,7 @@
                      </label> 
                     <?php endforeach;?>
                 <?php else : ?>
-                <span> ----- No image now  ---- </span>
+                <span> <?php echo label("no_image_available"); ?> </span>
                 <?php endif; ?>
                 </div>
             </div><!-- End group -->
@@ -427,7 +429,8 @@
                
                 </div>
                 <div class="profile-info-value" >
-					<button class='btn btn-success' <?php echo $access['edit']; ?> type="submit"><i class='fa fa-plus'></i>&nbsp; <?php echo label("save"); ?></button>
+					<button class='btn btn-success' <?php echo $access['edit']; ?> type="button" onclick="valid_edit_attribute()"><i class='fa fa-plus'></i>&nbsp; <?php echo label("save"); ?></button>
+                    <button id="attribute_submit" class='btn btn-success' type="button" style="display:none">Submit</button>
                 </div>
             </div><!-- End group -->
       </div>
@@ -482,7 +485,6 @@
 </div>
 
 <div id="tab3" class="tab-pane fade <?php echo $tab3; ?> in">
-
 	<form method="post" action="<?php echo $this->home; ?>/upload" enctype="multipart/form-data">
     <?php echo form_input(array("name"=>"id_product","id"=>"id_product", "type"=>"hidden"), $id_product); ?>
     
@@ -527,15 +529,15 @@
          <?php endforeach; ?>
          <?php else : ?>
          <tr style="font-size:12px;">
-                    <td style="vertical-align:middle;">&nbsp;</td>
-                    <td style="vertical-align:middle;" align="right">&nbsp;</td>
-                    <td align="right" style="vertical-align:middle;">&nbsp;</td>
-                    <td align="center" style="vertical-align:middle;">&nbsp;</td>
+                    <td colspan="4" style="vertical-align:middle; text-align:center"><h1><?php echo label("no_image_available"); ?></h1></td>
+                   
             </tr>
          <?php endif; ?>
                 </tbody>
 		</table>    
 		</form>
+        <div id="loader" style="position:absolute; padding: 15px 25px 15px 25px; background-color:#fff; opacity:0.0; box-shadow: 0px 0px 25px #CCC; top:-20px; display:none;">
+        <center><i class="fa fa-spinner fa-5x fa-spin blue"></i></center><center>Uploading</center></div>
 </div>
 </div><!-- end of tab contents -->
 </div><!-- end of tabbable -->
@@ -558,6 +560,43 @@ function save()
 	});
 }
 
+function valid_attribute()
+{
+	var code = $("#reference").val();
+	$.ajax({
+		url:"<?php echo $this->home."/valid_attribute/"; ?>"+code, type:"GET",cache:false,
+		success: function(rs){
+			if(rs == 1 ){
+				swal("<?php echo error("duplicate_reference"); ?>", "<?php echo error("reference_in_system"); ?>","error");
+			}else{
+				var btn = $("#attribute_submit");
+				btn.attr("type", "submit");
+				btn.click();
+				btn.attr("type","button");
+			}
+		}
+	});
+}
+
+function valid_edit_attribute()
+{
+	var code = $("#reference").val();
+	var id = $("#id_product_attribute").val();
+	$.ajax({
+		url:"<?php echo $this->home."/valid_attribute/"; ?>"+code+"/"+id, type:"GET",cache:false,
+		success: function(rs){
+			if(rs == 1 ){
+				swal("<?php echo error("duplicate_reference"); ?>", "<?php echo error("reference_in_system"); ?>","error");
+			}else{
+				var btn = $("#attribute_submit");
+				btn.attr("type", "submit");
+				btn.click();
+				btn.attr("type","button");
+			}
+		}
+	});
+}
+
 $('#id-input-file-3').ace_file_input({
 					style:'well',
 					btn_choose:'<?php echo label("upload_image");?>',
@@ -569,6 +608,13 @@ $('#id-input-file-3').ace_file_input({
 				});
 $('#id-input-file-3').click(function(){
 	$("#upload").attr("style","");
+});
+
+$("#upload").click(function(){
+	var x = ($("#tab3").width()/2)-50;
+	$("#loader").css("display","");
+	$("#loader").css("left",x);
+	$("#loader").animate({opacity:0.8, top:100},300);
 });
 
 </script>

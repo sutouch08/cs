@@ -41,9 +41,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('928f1d86df6b2ea3ae1aed7947342947', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1430907254, ''),
-('f3d802735c0524c5720bbff44e9abb99', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1430907254, ''),
-('d4501855a3feac531e62ca02bf37bcee', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1430908056, 'a:4:{s:9:"user_data";s:0:"";s:7:"id_user";s:1:"1";s:9:"user_name";s:5:"admin";s:10:"id_profile";s:1:"1";}');
+('adadc59a0d346d21acd5ad0e55133e7a', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1430994527, 'a:4:{s:9:"user_data";s:0:"";s:7:"id_user";s:1:"1";s:9:"user_name";s:5:"admin";s:10:"id_profile";s:1:"1";}');
 
 -- --------------------------------------------------------
 
@@ -271,21 +269,22 @@ CREATE TABLE IF NOT EXISTS `tbl_image` (
   `position` int(11) NOT NULL,
   `cover` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_image`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- dump ตาราง `tbl_image`
 --
 
 INSERT INTO `tbl_image` (`id_image`, `id_product`, `position`, `cover`) VALUES
-(1, 1, 1, 1),
+(18, 3, 1, 1),
 (2, 1, 2, 0),
 (3, 1, 3, 0),
 (4, 1, 4, 0),
 (5, 1, 5, 0),
 (6, 1, 6, 0),
 (7, 1, 7, 0),
-(8, 1, 8, 0),
+(8, 1, 8, 1),
+(19, 3, 2, 0),
 (10, 6, 1, 1),
 (11, 6, 2, 0),
 (12, 6, 3, 0),
@@ -293,7 +292,17 @@ INSERT INTO `tbl_image` (`id_image`, `id_product`, `position`, `cover`) VALUES
 (14, 6, 5, 0),
 (15, 6, 6, 0),
 (16, 6, 7, 0),
-(17, 6, 8, 0);
+(17, 6, 8, 0),
+(20, 3, 3, 0),
+(21, 3, 4, 0),
+(22, 3, 5, 0),
+(23, 3, 6, 0),
+(24, 5, 1, 1),
+(25, 5, 2, 0),
+(26, 5, 3, 0),
+(27, 5, 4, 0),
+(28, 5, 5, 0),
+(29, 5, 6, 0);
 
 -- --------------------------------------------------------
 
@@ -373,21 +382,19 @@ CREATE TABLE IF NOT EXISTS `tbl_product_attribute` (
   `date_add` datetime NOT NULL,
   `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_product_attribute`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- dump ตาราง `tbl_product_attribute`
 --
 
 INSERT INTO `tbl_product_attribute` (`id_product_attribute`, `id_product`, `reference`, `barcode`, `id_color`, `id_size`, `id_attribute`, `cost`, `price`, `weight`, `date_add`, `date_upd`) VALUES
-(1, 1, 'KFB-S021-AW-M', '', 1, 8, 0, '100.00', '235.00', '0.00', '2015-04-30 16:28:59', '2015-04-30 09:28:59'),
-(2, 1, 'KFB-S021-AW-L', '8858797212345', 1, 4, 0, '100.00', '235.00', '0.00', '2015-04-30 16:33:39', '2015-04-30 09:33:39'),
-(4, 3, 'KFB-S052-AW-M', '8858797222324', 1, 8, 0, '100.15', '365.00', '0.00', '2015-04-30 17:08:09', '2015-04-30 10:08:09'),
+(11, 3, 'KFB-S052-AW-L', '', 1, 4, 0, '100.15', '365.00', '0.00', '2015-05-07 11:35:23', '2015-05-07 04:35:23'),
+(4, 3, 'KFB-S052-AW-M', '8858797222324', 1, 8, 0, '100.15', '365.00', '0.00', '2015-04-30 17:08:09', '2015-05-07 04:34:33'),
 (5, 1, 'KFB-S021-AR-M', '8858797212346', 3, 8, 0, '120.00', '235.00', '0.32', '2015-05-06 12:02:55', '2015-05-06 05:02:55'),
 (6, 1, 'KFB-S021-AR-L', '', 3, 4, 0, '120.00', '235.00', '0.32', '2015-05-06 14:00:52', '2015-05-06 07:00:52'),
 (7, 1, 'KFB-S021-AR-2L', '', 3, 6, 0, '120.00', '235.00', '0.32', '2015-05-06 14:01:48', '2015-05-06 09:31:53'),
-(8, 1, 'KFB-S021-AR-3L', '', 3, 7, 0, '120.00', '235.00', '0.32', '2015-05-06 14:25:43', '2015-05-06 07:25:43'),
-(9, 1, 'KFB-S021-AW-M', '', 0, 0, 0, '120.00', '235.00', '0.32', '2015-05-06 17:02:52', '2015-05-06 10:02:52');
+(8, 1, 'KFB-S021-AR-3L', '', 3, 7, 0, '120.00', '235.00', '0.32', '2015-05-06 14:25:43', '2015-05-06 07:25:43');
 
 -- --------------------------------------------------------
 
@@ -402,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `tbl_product_attribute_image` (
   PRIMARY KEY (`id`),
   KEY `id_image` (`id_image`),
   KEY `id_product_attribute` (`id_product_attribute`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- dump ตาราง `tbl_product_attribute_image`
@@ -410,8 +417,6 @@ CREATE TABLE IF NOT EXISTS `tbl_product_attribute_image` (
 
 INSERT INTO `tbl_product_attribute_image` (`id`, `id_product_attribute`, `id_image`) VALUES
 (1, 8, 5),
-(2, 1, 3),
-(3, 2, 3),
 (4, 5, 5),
 (5, 6, 5),
 (6, 7, 5);
@@ -485,6 +490,29 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
 
 INSERT INTO `tbl_user` (`id_user`, `id_employee`, `id_profile`, `id_shop`, `user_name`, `password`, `date_add`, `date_upd`, `last_login`) VALUES
 (1, 1, 1, 0, 'admin', '21232f297a57a5a743894a0e4a801fc3', '2015-03-19 00:00:00', '2015-03-19 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- โครงสร้างตาราง `tbl_warehouse`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_warehouse` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `consign` tinyint(1) NOT NULL DEFAULT '0',
+  `default` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- dump ตาราง `tbl_warehouse`
+--
+
+INSERT INTO `tbl_warehouse` (`id`, `code`, `name`, `consign`, `default`) VALUES
+(1, '01', 'คลังหลัก', 0, 1),
+(2, '02', 'ฝากขาย1', 1, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
