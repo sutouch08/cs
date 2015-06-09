@@ -5,22 +5,59 @@ class Product_model extends CI_Model
 	{
 		parent::__construct();
 	}
-	/*************************  Product  ****************************/
-	public function get_data($id = "")
+	
+	public function count_row()
 	{
-		if($id != "")
-		{
-			$this->db->where("id_product", $id);
-		}
 		$rs = $this->db->get("tbl_product");
-		if($rs->num_rows() >0)
-		{
-			return $rs->result();
+		if($rs->num_rows() >0 ){
+			return $rs->num_rows();
 		}else{
 			return false;
-		}		
+		}
 	}
 	
+	public function search_count_row($txt)
+	{
+		$this->db->like("product_code", $txt)->or_like("product_name", $txt);
+		$rs = $this->db->get("tbl_product");
+		if($rs->num_rows() >0 ){
+			return $rs->num_rows();
+		}else{
+			return false;
+		}
+	}
+	/*************************  Product  ****************************/
+	public function get_data($id="", $perpage="", $limit ="")
+	{
+		if($id !=""){
+			$rs = $this->db->get_where("tbl_product", array("id_product"=>$id), 1);
+			if($rs->num_rows() == 1){
+				return $rs->result();
+			}else{
+				return false;
+			}
+		}else{
+			$this->db->order_by("date_upd","desc");
+			$rs = $this->db->limit($perpage, $limit)->get("tbl_product");
+			if($rs->num_rows() >0 ){
+				return $rs->result();
+			}else{
+				return false;
+			}
+		}
+	}
+	
+	public function get_search_data($txt, $perpage="", $limit ="")
+	{
+		$this->db->like("product_code", $txt)->or_like("product_name", $txt);
+			$rs = $this->db->limit($perpage, $limit)->get("tbl_product");
+			if($rs->num_rows() >0 ){
+				return $rs->result();
+			}else{
+				return false;
+			}
+	}
+		
 	public function update($id, $data)
 	{
 		$rs = $this->db->where("id_product", $id)->update("tbl_product", $data);	

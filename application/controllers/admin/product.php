@@ -27,11 +27,18 @@ class Product extends CI_Controller
 	
 	public function index()
 	{
-		$rs = $this->product_model->get_data();
-		$data['data'] = $rs;
-		$data['id_menu'] = $this->id_menu;
-		$data['view'] = "admin/product_view";
-		$data['page_title'] = $this->title;
+		$this->session->unset_userdata("search_txt");
+		$row 						= $this->product_model->count_row();
+		$config 					= pagination_config();
+		$config['base_url'] 		= $this->home."/index/";
+		$config['per_page'] 	= getConfig("PER_PAGE");
+		$config['total_rows'] 	=  $row != false ? $row : 200;
+		$rs 						= $this->product_model->get_data("", $config['per_page'], $this->uri->segment($config['uri_segment']));
+		$data['data'] 			= $rs;
+		$data['id_menu'] 		= $this->id_menu;
+		$data['view'] 			= "admin/product_view";
+		$data['page_title'] 		= $this->title;
+		$this->pagination->initialize($config);	
 		$this->load->view($this->layout, $data);
 	}
 	
@@ -446,6 +453,43 @@ public function display_category($parent, $checked="", $me=""){
 		$this->edit_product($id_product,"tab3");
 	}
 	
+	public function get_cover_image_id($id_product)
+	{
+		$rs = $this->product_model->get_cover_image_id($id_product);
+		return $rs;
+	}
+	
+	public function search_product()
+	{
+			if($this->input->post("search_txt"))
+			{
+				$txt 						= $this->input->post("search_txt");
+				$this->session->set_userdata("search_txt", $txt);
+			}else{
+				$txt = $this->session->userdata("search_txt");
+			}
+			$row 						= $this->product_model->search_count_row($txt);
+			$config 					= pagination_config();
+			$config['base_url'] 		= $this->home."/search_product/";
+			$config['per_page'] 	= getConfig("PER_PAGE");
+			$config['total_rows'] 	=  $row != false ? $row : 200;
+			$rs 						= $this->product_model->get_search_data($txt, $config['per_page'], $this->uri->segment($config['uri_segment']));
+			$data['data'] 			= $rs;
+			$data['id_menu'] 		= $this->id_menu;
+			$data['view'] 			= "admin/product_view";
+			$data['page_title'] 		= $this->title;
+			$this->pagination->initialize($config);	
+			$this->load->view($this->layout, $data);
+	}
+	
+	public function generator($id_product)
+	{
+			$data['data'] 			= $id_product;
+			$data['id_menu'] 		= $this->id_menu;
+			$data['view'] 			= "admin/product_attribute_generator";
+			$data['page_title'] 		= $this->title;
+			$this->load->view($this->layout, $data);
+	}
 	
 }// End class
 

@@ -10,6 +10,10 @@ $lang['yes'] = "Yes";
 $lang['number'] = "No.";
 $lang['confirm_delete'] = "Are suer ?"; 
 $lang['delete_warning'] = "This action can not be recovered";
+$lang['search'] = "Search";
+$lang['prev'] = "Prev";
+$lang['next'] = "Next";
+$lang['finish'] = "Finish";
 
 $lang['visible'] = "Visible";
 $lang['active'] = "Active";
@@ -21,6 +25,7 @@ $lang['status'] = "Status";
 $lang['position'] = "Position";
 $lang['cover'] = "Cover";
 $lang['set_as_cover'] = "Set as cover";
+$lang['upload_image'] = "Upload images";
 
 
 // product attribute

@@ -7,6 +7,12 @@ $lang['update'] = "อัพเดต";
 $lang['save'] = "บันทึก";
 $lang['cancle'] = "ยกเลิก";
 $lang['number'] = "ลำดับ";
+$lang['confirm_delete'] = "คุณแน่ใจนะ ว่าต้องการลบ ?"; 
+$lang['delete_warning'] = "การกระทำนี้ไม่สามารถกู้คืนได้";
+$lang['search'] = "ค้นหา";
+$lang['prev'] = "ก่อนหน้า";
+$lang['next'] = "ถัดไป";
+$lang['finish'] = "เสร็จสิ้น";
 
 $lang['visible'] = "แสดง";
 $lang['active'] = "เปิดใช้";

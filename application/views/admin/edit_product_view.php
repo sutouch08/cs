@@ -213,7 +213,11 @@
 <?php endforeach; ?>	
 <form id="attribute_form" method="post" action="<?php echo $this->home; ?>/add_attribute">
 <input type="hidden" name="id_product" value="<?php echo $id_product; ?>"  />
-	<h4 class="blue" align="left" style="margin-top:-5px">เพิ่ม หรือ แก้ไข คุณลักษณะต่างๆของสินค้านี้ หรือ  <button type="button" class="btn btn-primary">สร้างรายการสินค้าอัตโนมัติ</button></h4> 
+	<h4 class="blue" align="left" style="margin-top:-5px">
+    <?php echo label("generator_title_1"); ?>
+    <a href="<?php echo $this->home."/generator/".$id_product; ?>" ><button type="button" class="btn btn-primary"><?php echo label("combinations_generator"); ?></button></a>
+    <?php echo label("generator_title_2"); ?>
+    </h4> 
     <hr class="blue" style="margin-top:-1px" />  
 	<div class="profile-user-info profile-user-info-striped ">
             <div class="col-lg-6" style="padding-left:0px;"><!-- group -->

@@ -219,13 +219,19 @@ function image_path($id_image, $use_size=1)
 		break;
 	}
 	$image_path = base_url()."images/product";
-	$count = strlen($id_image);
-	$path = str_split($id_image);
-	$n=0;
-	while($n<$count)
-	{
-		$image_path .= "/".$path[$n];
-		$n++;
+	if($id_image == "")
+	{ 
+		$id_image = "no_image_"; 
+		return $image_path."/".$id_image.$prefix.".jpg";
+	}else{
+		$count = strlen($id_image);
+		$path = str_split($id_image);
+		$n=0;
+		while($n<$count)
+		{
+			$image_path .= "/".$path[$n];
+			$n++;
+		}
 	}
 	return $image_path."/".$prefix.$id_image.".jpg";
 }
@@ -364,6 +370,18 @@ function get_attribute_image_id($id_product_attribute)
 		$id_image = $rs->row()->id_image;
 	}
 	return $id_image;
+}
+
+function get_product_code($id_product)
+{
+	$code = "";
+	$c =& get_instance();
+	$rs = $c->db->select("product_code")->where("id_product", $id_product)->get("tbl_product",1);
+	if($rs->num_rows == 1)
+	{
+		$code = $rs->row()->product_code;
+	}
+	return $code;
 }
 
 
