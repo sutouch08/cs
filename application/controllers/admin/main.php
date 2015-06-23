@@ -4,6 +4,7 @@ class Main extends CI_Controller
 	public $id_menu = 1;
 	public $home;
 	public $layout = "include/template";
+	public $title = "Welcome";
 	
 	public function __construct()
 	{

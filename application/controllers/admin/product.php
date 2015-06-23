@@ -484,7 +484,16 @@ public function display_category($parent, $checked="", $me=""){
 	
 	public function generator($id_product)
 	{
+		$this->load->model("admin/color_model");
+		$this->load->model("admin/size_model");
+		$this->load->model("admin/attribute_model");
+			$colors					= $this->color_model->get_color();
+			$sizes					= $this->size_model->get_data();
+			$attrs						= $this->attribute_model->get_data();
 			$data['data'] 			= $id_product;
+			$data['color']			= $colors;
+			$data['size']			= $sizes;
+			$data['attribute']		= $attrs;
 			$data['id_menu'] 		= $this->id_menu;
 			$data['view'] 			= "admin/product_attribute_generator";
 			$data['page_title'] 		= $this->title;
